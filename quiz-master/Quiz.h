@@ -1,5 +1,9 @@
 #pragma once
 #include "MyString.h"
+#include "MyVector.hpp"
+#include "Question.h"
+
+static size_t constexpr INITIAL_QUESTIONS_COUNT = 5;
 
 enum class WorkMode
 {
@@ -12,19 +16,41 @@ class Quiz
 private:
 	unsigned id;
 	MyString title;
-	unsigned questionsQount;
+	unsigned questionsCount;
+	MyVector<Question> questions;
+	MyString createrNames, createrUsername;
 
 	//right answers ?
 
 	WorkMode mode;
 	unsigned playCounts;
-	bool shuffle;
-	bool like; // when profile
-	bool favourites; // when profile
+	bool shuffleOn; // may be function
+	bool liked; // when profile
+
+	//bool favourites; // -> player functions
 public:
-	//void play();
-	// get set...
+	Quiz(const MyString& title);
+
+	unsigned getId() const;
+	const MyString& getTitle() const;
+	unsigned getQuestionsCount() const;
+	WorkMode getWorkMode() const;
+	unsigned getPlaysCount() const;
+
+	void setWorkMode(const WorkMode mode);
+
+	void addQuestion(const Question& question);
+
 	void like();
-	void addToFavourites();
+	void unlike();
+	bool isLiked() const;
+
+	void shuffle(); //?
+	void play();
+
+	void saveToFile(std::ofstream& ofs) const;
+	void readFromFile();
+
+	// void addToFavourites(); -> player functions
 };
 

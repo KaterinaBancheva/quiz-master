@@ -146,6 +146,7 @@
     <ClInclude Include="MatchingPairsQuestion.h" />
     <ClInclude Include="MultipleChoiceQuestion.h" />
     <ClInclude Include="MyString.h" />
+    <ClInclude Include="MyVector.hpp" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Question.h" />
     <ClInclude Include="Quiz.h" />

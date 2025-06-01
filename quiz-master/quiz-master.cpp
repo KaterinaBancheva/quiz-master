@@ -1,6 +1,8 @@
 ﻿#include <iostream>
+#include "Quiz.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	Quiz q1("quiz1");
+	
 }

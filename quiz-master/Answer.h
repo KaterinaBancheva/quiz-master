@@ -1,7 +1,7 @@
 #pragma once
 #include "MyString.h"
 
-class Answer // may be not
+class Answer 
 {
 private:
 	MyString text;

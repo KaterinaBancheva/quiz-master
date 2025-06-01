@@ -7,6 +7,7 @@ protected:
 	MyString description;
 	int points;
 public:
+
 	virtual void clone() const = 0;
 	virtual void collectPoints() = 0;
 

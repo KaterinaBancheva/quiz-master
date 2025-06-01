@@ -1,6 +1,5 @@
 #include "MyString.h"
 #include <algorithm>
-#include <utility>
 #pragma warning (disable : 4996)
 
 void MyString::free()
@@ -14,24 +13,14 @@ void MyString::free()
 void MyString::copyFrom(const MyString& other)
 {
 	capacity = other.capacity;
-	data = new char[capacity] {};
+	data = new char[capacity];
 	strcpy(data, other.data);
 	size = other.size;
 }
 
-void MyString::moveFrom(MyString&& other)
-{
-	size = other.size;
-	other.size = 0;
-	capacity = other.capacity;
-	other.capacity = 0;
-	data = other.data;
-	other.data = nullptr;
-}
-
 void MyString::resize(unsigned newCapacity)
 {
-	char* newData = new char[newCapacity + 1] {};
+	char* newData = new char[newCapacity + 1];
 	strcpy(newData, data);
 	delete[] data;
 	data = newData;
@@ -47,11 +36,12 @@ static unsigned roundToPowerOfTwo(unsigned v)
 	}
 
 	return res;
+
 }
 
 static unsigned getMaxResizeCapacity(unsigned v)
 {
-	return std::max(roundToPowerOfTwo(v), 16u); 
+	return std::max(roundToPowerOfTwo(v), 16u);
 }
 
 MyString::MyString() : MyString("") {}
@@ -59,11 +49,11 @@ MyString::MyString() : MyString("") {}
 MyString::MyString(const char* str)
 {
 	if (!str)
-		str = ""; 
+		str = "";
 
 	size = strlen(str);
 	capacity = getMaxResizeCapacity(size);
-	data = new char[capacity] {};
+	data = new char[capacity];
 	strcpy(data, str);
 }
 
@@ -83,21 +73,6 @@ MyString& MyString::operator=(const MyString& other)
 	return *this;
 }
 
-MyString::MyString(MyString&& other) noexcept
-{
-	moveFrom(std::move(other));
-}
-
-MyString& MyString::operator=(MyString&& other) noexcept
-{
-	if (this != &other)
-	{
-		free();
-		moveFrom(std::move(other));
-	}
-	return *this;
-}
-
 MyString::~MyString()
 {
 	free();
@@ -111,6 +86,22 @@ size_t MyString::getSize() const
 size_t MyString::getCapacity() const
 {
 	return capacity - 1;
+}
+
+void MyString::write(std::ofstream& ofs) const
+{
+	ofs.write((const char*)&capacity, sizeof(capacity));
+	ofs.write((const char*)&size, sizeof(size));
+	ofs.write((const char*)data, size);
+}
+
+void MyString::read(std::ifstream& ifs)
+{
+	free();
+	ifs.read((char*)&capacity, sizeof(capacity));
+	data = new char[capacity] {};
+	ifs.read((char*)&size, sizeof(size));
+	ifs.read((char*)data, size);
 }
 
 const char* MyString::c_str() const
@@ -155,7 +146,7 @@ std::ostream& operator<<(std::ostream& os, const MyString& str)
 
 std::istream& operator>>(std::istream& is, MyString& str)
 {
-	char buff[1024]{};
+	char buff[1024];
 	is >> buff;
 
 	size_t buffStringSize = strlen(buff);
@@ -175,7 +166,7 @@ MyString MyString::substr(unsigned begin, unsigned howMany)
 
 	MyString res;
 	res.capacity = getMaxResizeCapacity(howMany + 1);
-	res.data = new char[res.capacity] {};
+	res.data = new char[res.capacity];
 	strncat(res.data, data + begin, howMany);
 	res.size = howMany;
 
