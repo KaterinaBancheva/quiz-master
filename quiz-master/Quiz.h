@@ -17,13 +17,12 @@ private:
 	unsigned id;
 	MyString title;
 	unsigned questionsCount;
-	MyVector<Question> questions;
+	MyVector<Question*> questions;
 	MyString createrNames, createrUsername;
-
-	//right answers ?
 
 	WorkMode mode;
 	unsigned playCounts;
+	int collectedPoints;
 	bool shuffleOn; // may be function
 	bool liked; // when profile
 
@@ -39,17 +38,20 @@ public:
 
 	void setWorkMode(const WorkMode mode);
 
-	void addQuestion(const Question& question);
+	void addQuestion(Question* question);
 
 	void like();
 	void unlike();
 	bool isLiked() const;
 
-	void shuffle(); //?
+	void shuffle(); // ?
 	void play();
 
 	void saveToFile(std::ofstream& ofs) const;
-	void readFromFile();
+	void readFromBinaryFile();
+	void saveToBinaryFile();
+
+	void sendToApproval() const;
 
 	// void addToFavourites(); -> player functions
 };

@@ -36,9 +36,10 @@ void Quiz::setWorkMode(const WorkMode mode)
 	this->mode = mode;
 }
 
-void Quiz::addQuestion(const Question& question)
+void Quiz::addQuestion(Question* question)
 {
 	questions.push_back(question);
+	questionsCount++;
 }
 
 void Quiz::like()
@@ -80,12 +81,33 @@ void Quiz::shuffle()
 
 void Quiz::play()
 {
-	std::cout << "Play " << title << ": \n";
-	for (size_t i = 0; i < questions.getSize(); i++)
+	if (mode == WorkMode::Normal)
 	{
-		std::cout << "question " << i << ":\n";
-		//questions[i].print();
+		int sum = 0;
+		std::cout << "Play " << title << ": \n";
+		for (size_t i = 0; i < questions.getSize(); i++)
+		{
+			sum += questions[i]->getQuestionPoints();
+			std::cout << "question " << i+1 << ":\n";
+			questions[i]->printNormal();
+			if (questions[i]->answerNormal())
+			{
+				collectedPoints += questions[i]->getQuestionPoints();
+			}
+		}
+		std::cout << "Your quiz score is " << collectedPoints <<  '/' << sum <<  '\n';
 	}
+	else
+	{
+		std::cout << "Play " << title << ": \n";
+		for (size_t i = 0; i < questions.getSize(); i++)
+		{
+			std::cout << "question " << i << ":\n";
+			questions[i]->printTest();
+			questions[i]->answerTest();
+		}
+	}
+	
 }
 
 void Quiz::saveToFile(std::ofstream& ofs) const
@@ -94,7 +116,7 @@ void Quiz::saveToFile(std::ofstream& ofs) const
 	ofs << "By: " << createrNames << createrUsername << "\n";
 	for (size_t i = 0; i < questionsCount; i++)
 	{
-
+		questions[i]->saveToFile(ofs);
 	}
 }
 

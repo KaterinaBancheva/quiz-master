@@ -99,9 +99,10 @@ void MyString::read(std::ifstream& ifs)
 {
 	free();
 	ifs.read((char*)&capacity, sizeof(capacity));
-	data = new char[capacity] {};
+	data = new char[capacity + 1] {};
 	ifs.read((char*)&size, sizeof(size));
 	ifs.read((char*)data, size);
+	data[size++] = '\0';
 }
 
 const char* MyString::c_str() const

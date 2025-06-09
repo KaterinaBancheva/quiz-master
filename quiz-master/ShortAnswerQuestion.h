@@ -1,8 +1,22 @@
 #pragma once
 #include "Question.h"
+
 class ShortAnswerQuestion :
     public Question
 {
-    MyString answer;
-    MyString rightAnswer;
+private:
+    MyString correctAnswer;
+public:
+    ShortAnswerQuestion(const MyString& description, int points, const MyString& correctAnswer);
+
+    Question* clone() const override;
+    void answerTest() override;
+    bool answerNormal() override;
+    void printTest() const override;
+    void printNormal() const override;
+    ~ShortAnswerQuestion() override = default;
+
+    void saveToFile(std::ofstream& ofs) const override;
+    void saveToBunaryFile(std::ofstream& ofs) const override;
+    void readFromBinaryFile(std::ifstream& ifs) override;
 };

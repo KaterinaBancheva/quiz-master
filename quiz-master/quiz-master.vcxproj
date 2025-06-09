@@ -128,13 +128,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Administrator.cpp" />
-    <ClCompile Include="Answer.cpp" />
+    <ClCompile Include="Challange.cpp" />
+    <ClCompile Include="Pair.cpp" />
+    <ClCompile Include="MatchingPairsQuestion.cpp" />
     <ClCompile Include="MultipleChoiceQuestion.cpp" />
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Question.cpp" />
     <ClCompile Include="quiz-master.cpp" />
     <ClCompile Include="Quiz.cpp" />
+    <ClCompile Include="ShortAnswerQuestion.cpp" />
     <ClCompile Include="SingleChoiceQuestion.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="TrueOrFalseQuestion.cpp" />
@@ -142,7 +145,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Administrator.h" />
-    <ClInclude Include="Answer.h" />
+    <ClInclude Include="Challange.h" />
+    <ClInclude Include="Pair.h" />
     <ClInclude Include="MatchingPairsQuestion.h" />
     <ClInclude Include="MultipleChoiceQuestion.h" />
     <ClInclude Include="MyString.h" />

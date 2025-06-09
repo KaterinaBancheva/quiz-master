@@ -1,16 +1,20 @@
 #pragma once
+#include "MyVector.hpp"
 #include "User.h"
 
 class Player : public User
 {
 private:
 	int points;
-	unsigned* favoirites; // quizId
+	MyVector<unsigned> liked;
+	MyVector<unsigned> favoirites; // quizId
 	unsigned level;
-	// vector<Challenge> challenges
+	MyVector<unsigned> createdQuizes;
+	//MyVector<Challenge> challenges
 public:
+	void viewProfile() const override;
+
 	void signUp(const MyString& name, const MyString& familyName, const MyString& username, const MyString& password, const MyString& password2);
-	void viewPrifile() const;
 	void editProfile();
 	void viewChallenges() const;
 	void viewFinishedChallenges() const;
@@ -24,8 +28,8 @@ public:
 	void unlikeQuiz(unsigned quizId);
 	void addToFavs(unsigned quizId);
 	void removeFromFavs(unsigned quizId);
-	void startQuiz(unsigned quizId /* work mode - separate file */);
-	void startQuiz(unsigned quizId, /* work mode - separate file */ bool shuffle);
+	void startQuiz_normal(unsigned quizId, bool shuffle);
+	void startQuiz_test(unsigned quizId, bool shuffle);
 	void saveQuiz(unsigned quizId, const MyString& filepath);
 	void reportQuiz(unsigned quizId, const MyString& reason);
 };
