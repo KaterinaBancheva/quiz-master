@@ -1,22 +1,23 @@
-//#pragma once
-//#include "Question.h"
-//class SingleChoiceQuestion :
-//    public Question
-//{
-//private:
-//    MyString answer1, answer2, answer3, answer4;
-//    unsigned indexOfRightAnswer;
-//public:
-//    SingleChoiceQuestion(const MyString& description, int points, MyString& a1, MyString& a2, MyString& a3, MyString& a4, unsigned right);
-//   
-//    Question* clone() const override;
-//    void answer() override;
-//    void printTest() const override;
-//    void printNormal() const override;
-//    ~SingleChoiceQuestion() override = default;
-//
-//    void saveToFile(std::ofstream& ofs) const override;
-//    void saveToBunaryFile(std::ostream& os) const override;
-//    void readFromBinaryFile(std::istream& is) override;
-//};
-//
+#pragma once
+#include "Question.h"
+class SingleChoiceQuestion :
+    public Question
+{
+private:
+    MyString answer1, answer2, answer3, answer4;
+    char rightAnswer;
+public:
+    SingleChoiceQuestion(const MyString& description, int points, const MyString& a1, const MyString& a2, const MyString& a3, const MyString& a4, char right);
+   
+    Question* clone() const override;
+    void answerTest() override;
+    bool answerNormal() override;
+    void printTest() const override;
+    void printNormal() const override;
+    ~SingleChoiceQuestion() override = default;
+
+    void saveToFile(std::ofstream& ofs) const override;
+    void saveToBunaryFile(std::ofstream& ofs) const override;
+    void readFromBinaryFile(std::ifstream& ifs) override;
+};
+

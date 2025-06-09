@@ -1,4 +1,10 @@
-quiz1 - 1 questions 
+quiz1 - 2 questions 
 By: 
-ShortAnswerQuestion How are you
-Enter yout answer here... 
+ShortAnswerQuestion Hi
+Enter yout answer here: 
+SingleChoiceQuestion How are you
+A. fine
+B. bad
+C. idk
+D. great
+Enter your choice here: 
