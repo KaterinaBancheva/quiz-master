@@ -17,6 +17,6 @@ public:
     ~ShortAnswerQuestion() override = default;
 
     void saveToFile(std::ofstream& ofs) const override;
-    void saveToBunaryFile(std::ofstream& ofs) const override;
+    void saveToBinaryFile(std::ofstream& ofs) const override;
     void readFromBinaryFile(std::ifstream& ifs) override;
 };

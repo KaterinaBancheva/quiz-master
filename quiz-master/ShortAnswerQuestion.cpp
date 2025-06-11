@@ -54,14 +54,14 @@ void ShortAnswerQuestion::saveToFile(std::ofstream& ofs) const
 {
 	if (!ofs.is_open())
 	{
-		std::runtime_error("File cannot be opened!");
+		throw std::runtime_error("File cannot be opened!");
 	}
 
 	ofs << "ShortAnswerQuestion " << description << "\nEnter yout answer here: \n";
 	
 }
 
-void ShortAnswerQuestion::saveToBunaryFile(std::ofstream& ofs) const
+void ShortAnswerQuestion::saveToBinaryFile(std::ofstream& ofs) const
 {
 	description.write(ofs);
 	ofs.write((const char*)&points, sizeof(points));

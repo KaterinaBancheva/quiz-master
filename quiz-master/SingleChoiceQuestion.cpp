@@ -68,7 +68,7 @@ void SingleChoiceQuestion::saveToFile(std::ofstream& ofs) const
 {
 	if (!ofs.is_open())
 	{
-		std::runtime_error("File cannot be opened!");
+		throw std::runtime_error("File cannot be opened!");
 	}
 
 	ofs << "SingleChoiceQuestion ";
@@ -80,7 +80,7 @@ void SingleChoiceQuestion::saveToFile(std::ofstream& ofs) const
 	ofs << "Enter your choice here: ";
 }
 
-void SingleChoiceQuestion::saveToBunaryFile(std::ofstream& ofs) const
+void SingleChoiceQuestion::saveToBinaryFile(std::ofstream& ofs) const
 {
 	description.write(ofs);
 	ofs.write((const char*)&points, sizeof(points));

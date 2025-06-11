@@ -1,4 +1,4 @@
-quiz1 - 2 questions 
+quiz1 - 3 questions 
 By: 
 ShortAnswerQuestion Hi
 Enter yout answer here: 
@@ -7,4 +7,5 @@ A. fine
 B. bad
 C. idk
 D. great
-Enter your choice here: 
+Enter your choice here: TrueOrFalseQuestion Ternary operator can be overloaded in C++
+Enter your answer here (true/false): 

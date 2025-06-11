@@ -17,7 +17,7 @@ public:
 	virtual ~Question() = default;
 
 	virtual void saveToFile(std::ofstream& ofs) const = 0;
-	virtual void saveToBunaryFile(std::ofstream& ofs) const = 0;
+	virtual void saveToBinaryFile(std::ofstream& ofs) const = 0;
 	virtual void readFromBinaryFile(std::ifstream& ifs) = 0;
 
 	int getQuestionPoints() const;

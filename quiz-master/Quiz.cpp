@@ -102,7 +102,7 @@ void Quiz::play()
 		std::cout << "Play " << title << ": \n";
 		for (size_t i = 0; i < questions.getSize(); i++)
 		{
-			std::cout << "question " << i << ":\n";
+			std::cout << "question " << i+1 << ":\n";
 			questions[i]->printTest();
 			questions[i]->answerTest();
 		}
