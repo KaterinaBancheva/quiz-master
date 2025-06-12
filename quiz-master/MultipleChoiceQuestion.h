@@ -10,14 +10,17 @@ class MultipleChoiceQuestion :
 {
 private:
     MyVector<MyString> options;
-    MyVector<int> rightAnswers;
+    MyVector<char> rightAnswers;
+    int pointsToGet = points;
 
     MyString normalize(const MyString& str);
-    int toInt(const char* str);
-    bool contains(int indx) const;
+    char getLetter(const char* str);
+    bool contains(char ch) const;
 public:
-    MultipleChoiceQuestion(const MyString& description, int points, const MyVector<MyString>& options, const MyVector<int>& rightAnswers);
-  
+    MultipleChoiceQuestion();
+    MultipleChoiceQuestion(const MyString& description, int points, const MyVector<MyString>& options, const MyVector<char>& rightAnswers);
+    int getQuestionPoints() const override;
+
     Question* clone() const override;
     void answerTest() override;
     bool answerNormal() override;

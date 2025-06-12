@@ -81,6 +81,7 @@ void Quiz::shuffle()
 
 void Quiz::play()
 {
+	playCounts++;
 	if (mode == WorkMode::Normal)
 	{
 		int sum = 0;

@@ -20,7 +20,7 @@ public:
 	virtual void saveToBinaryFile(std::ofstream& ofs) const = 0;
 	virtual void readFromBinaryFile(std::ifstream& ifs) = 0;
 
-	int getQuestionPoints() const;
+	virtual int getQuestionPoints() const;
 	const MyString& getDescription() const;
 };
 

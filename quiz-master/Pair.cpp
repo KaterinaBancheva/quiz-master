@@ -11,9 +11,41 @@ Pair::Pair(const MyString& lhs, const MyString& rhs)
 	this->rhs = rhs;
 }
 
-std::ostream& Pair::operator<<(std::ostream& os) const
+std::ostream& operator<<(std::ostream& os, const Pair& obj)
 {
-	os << "( " << lhs << ", " << rhs << " )";
+	os << "( " << obj.lhs << ", " << obj.rhs << " )";
 	return os;
+}
+
+std::istream& operator>>(std::istream& is, Pair& obj)
+{
+	char ch;
+	MyString lhs, rhs;
+
+	is >> ch;        
+	if (ch != '(') {
+		is.setstate(std::ios::failbit);
+		return is;
+	}
+
+	is >> lhs;
+
+	is >> ch;          
+	if (ch != ',') {
+		is.setstate(std::ios::failbit);
+		return is;
+	}
+
+	is >> rhs;
+
+	is >> ch;          
+	if (ch != ')') {
+		is.setstate(std::ios::failbit);
+		return is;
+	}
+
+	obj.lhs = lhs;
+	obj.rhs = rhs;
+	return is;
 }
 

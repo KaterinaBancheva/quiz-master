@@ -9,9 +9,12 @@ private:
 public:
 	Pair() = default;
 	Pair(const MyString& lhs, const MyString& rhs);
+
+	void setLhs(const MyString& str);
+	void setRhs(const MyString& str);
 	
-	std::ostream& operator<<(std::ostream& os) const;
-	std::istream& operator>>(std::istream& is);
+	friend std::ostream& operator<<(std::ostream& os, const Pair& obj);
+	friend std::istream& operator>>(std::istream& is, Pair& obj);
 	
 	friend bool operator==(const Pair& l, const Pair& r);
 };
