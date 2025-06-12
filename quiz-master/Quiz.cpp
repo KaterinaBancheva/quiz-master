@@ -117,7 +117,9 @@ void Quiz::saveToFile(std::ofstream& ofs) const
 	ofs << "By: " << createrNames << createrUsername << "\n";
 	for (size_t i = 0; i < questionsCount; i++)
 	{
+		ofs << i + 1 << ')';
 		questions[i]->saveToFile(ofs);
+		ofs << '\n';
 	}
 }
 

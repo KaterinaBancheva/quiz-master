@@ -132,6 +132,18 @@ MyString& MyString::operator+=(const MyString& other)
 	return *this;
 }
 
+MyString& MyString::operator+=(const char symbol)
+{
+	if (size + 1 + 1 > capacity)
+		resize(getMaxResizeCapacity(size + 1));
+
+	data[size] = symbol;
+	size++;
+	data[size] = '\0';
+
+	return *this;
+}
+
 MyString operator+(const MyString& lhs, const MyString& rhs)
 {
 	MyString res(lhs);

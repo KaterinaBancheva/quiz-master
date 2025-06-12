@@ -17,5 +17,8 @@ public:
 	friend std::istream& operator>>(std::istream& is, Pair& obj);
 	
 	friend bool operator==(const Pair& l, const Pair& r);
+
+	void saveToBinaryFile(std::ofstream& ofs) const;
+	void readFromBinaryFile(std::ifstream& ifs);
 };
 

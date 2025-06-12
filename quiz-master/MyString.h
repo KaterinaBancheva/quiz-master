@@ -29,6 +29,7 @@
 		const char& operator[](unsigned indexs) const;
 
 		MyString& operator+=(const MyString& other);
+		MyString& operator+=(const char symbol);
 
 		friend MyString operator+(const MyString& lhs, const MyString& rhs);
 		friend std::ostream& operator<<(std::ostream& os, const MyString& str);

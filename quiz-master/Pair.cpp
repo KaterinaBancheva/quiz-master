@@ -11,6 +11,18 @@ Pair::Pair(const MyString& lhs, const MyString& rhs)
 	this->rhs = rhs;
 }
 
+void Pair::saveToBinaryFile(std::ofstream& ofs) const
+{
+	lhs.write(ofs);
+	rhs.write(ofs);
+}
+
+void Pair::readFromBinaryFile(std::ifstream& ifs)
+{
+	lhs.read(ifs);
+	rhs.read(ifs);
+}
+
 std::ostream& operator<<(std::ostream& os, const Pair& obj)
 {
 	os << "( " << obj.lhs << ", " << obj.rhs << " )";
