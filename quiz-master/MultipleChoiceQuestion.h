@@ -1,6 +1,7 @@
 #pragma once
 #include"MyVector.hpp"
 #include "Question.h"
+#include "Helpers.h"
 
 constexpr int MIN_ANSWERS_COUNT = 4;
 constexpr int MIN_RIGHT_ANSWERS_COUNT = 2;
@@ -13,10 +14,9 @@ private:
     MyVector<char> rightAnswers;
     int pointsToGet = points;
 
-    MyString normalize(const MyString& str);
-    char getLetter(const char* str);
     bool contains(char ch) const;
 public:
+
     MultipleChoiceQuestion();
     MultipleChoiceQuestion(const MyString& description, int points, const MyVector<MyString>& options, const MyVector<char>& rightAnswers);
     int getQuestionPoints() const override;

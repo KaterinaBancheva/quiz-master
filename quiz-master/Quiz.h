@@ -21,13 +21,16 @@ private:
 	MyString createrNames, createrUsername;
 
 	WorkMode mode;
-	unsigned playCounts;
+	unsigned playsCount;
+	unsigned likesCount;
 	int collectedPoints;
 	bool shuffleOn; // may be function
 	bool liked; // when profile
 
 	//bool favourites; // -> player functions
+	MyVector<unsigned> shuffleArray(size_t size) const;
 public:
+	Quiz() = default;
 	Quiz(const MyString& title);
 
 	unsigned getId() const;
@@ -35,6 +38,8 @@ public:
 	unsigned getQuestionsCount() const;
 	WorkMode getWorkMode() const;
 	unsigned getPlaysCount() const;
+	unsigned getLikesCount() const;
+	const MyString& getCreaterUsername() const;
 
 	void setWorkMode(const WorkMode mode);
 
@@ -52,6 +57,8 @@ public:
 	void saveToBinaryFile();
 
 	void sendToApproval() const;
+
+	void displayQuiz() const;
 
 	// void addToFavourites(); -> player functions
 };

@@ -2,45 +2,6 @@
 #include <iostream>
 #include <sstream>
 
-Pair MatchingPairsQuestion::getPair(const char* str)
-{
-	if (!str) return Pair(" ", " ");
-
-	MyString input(str);
-	bool parsingLhs = true;
-
-	MyString lhs, rhs;
-	size_t i = 0;
-
-	if (input[0] == '(') i++; 
-
-	while (input[i])
-	{
-		if (input[i] == ',')
-		{
-			parsingLhs = false;
-			i++;
-			continue;
-		}
-		if (input[i] == ' ' || input[i] == ')')
-		{
-			i++;
-			continue;
-		}
-		if (parsingLhs)
-		{
-			lhs += input[i];
-		}
-		else
-		{
-			rhs += input[i];
-		}
-		i++;
-	}
-
-	return Pair(lhs, rhs);
-}
-
 bool MatchingPairsQuestion::contains(const Pair& p) const
 {
 	for (size_t i = 0; i < answers.getSize(); i++)
@@ -75,6 +36,8 @@ Question* MatchingPairsQuestion::clone() const
 
 void MatchingPairsQuestion::answerTest()
 {
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 	std::string tempLine;
 	std::getline(std::cin, tempLine); 
 	MyString input(tempLine.c_str()); 
@@ -110,7 +73,7 @@ void MatchingPairsQuestion::answerTest()
 
 		i++; 
 
-		Pair p = getPair(pairContent.c_str());
+		Pair p = Helpers::getPair(pairContent.c_str());
 		userAnswers.push_back(p);
 	}
 
@@ -145,8 +108,11 @@ void MatchingPairsQuestion::answerTest()
 
 bool MatchingPairsQuestion::answerNormal()
 {
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 	std::string tempLine;
 	std::getline(std::cin, tempLine);
+	//std::cin >> tempLine;
 	MyString input(tempLine.c_str());
 
 	const char* cstr = input.c_str();
@@ -180,7 +146,7 @@ bool MatchingPairsQuestion::answerNormal()
 
 		i++;
 
-		Pair p = getPair(pairContent.c_str());
+		Pair p = Helpers::getPair(pairContent.c_str());
 		userAnswers.push_back(p);
 	}
 
@@ -259,8 +225,20 @@ void MatchingPairsQuestion::printTest() const
 	{
 		char letter = 'A' + i;
 		MyString tabs = getTabs(leftColumn[i].c_str(), alignment);
+
 		char letter_ = letter - 'A' + 'a';
-		std::cout << letter << ". " << leftColumn[i].c_str() << tabs << letter_ << ". " << rightColumn[i] << '\n';
+		if (areLeftMore && rightColumn.getSize() - 1 < i)
+		{
+			std::cout << letter << ". " << leftColumn[i].c_str() << '\n';
+		}
+		else if ((!areLeftMore)&& leftColumn.getSize()-1 < i)
+		{
+			std::cout << " . " << leftColumn[i].c_str() << tabs << letter_ << ". " << rightColumn[i] << '\n';
+		}
+		else
+		{
+			std::cout << letter << ". " << leftColumn[i].c_str() << tabs << letter_ << ". " << rightColumn[i] << '\n';
+		}
 	}
 	std::cout << "Enter your pairs here: ";
 }
@@ -289,7 +267,19 @@ void MatchingPairsQuestion::printNormal() const
 		char letter = 'A' + i;
 		MyString tabs = getTabs(leftColumn[i].c_str(), alignment);
 		char letter_ = letter - 'A' + 'a';
-		std::cout << letter << ". " << leftColumn[i].c_str() << tabs << letter_ << ". " << rightColumn[i] << '\n';
+
+		if (areLeftMore && rightColumn.getSize() - 1 < i)
+		{
+			std::cout << letter << ". " << leftColumn[i].c_str() << '\n';
+		}
+		else if ((!areLeftMore) && leftColumn.getSize() - 1 < i)
+		{
+			std::cout << " . " << leftColumn[i].c_str() << tabs << letter_ << ". " << rightColumn[i] << '\n';
+		}
+		else
+		{
+			std::cout << letter << ". " << leftColumn[i].c_str() << tabs << letter_ << ". " << rightColumn[i] << '\n';
+		}
 	}
 	std::cout << "Enter your pairs here: ";
 }

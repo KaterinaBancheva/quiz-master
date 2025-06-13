@@ -6,6 +6,8 @@ class ShortAnswerQuestion :
 {
 private:
     MyString correctAnswer;
+
+    void normalizeAnswer(MyString& str);
 public:
     ShortAnswerQuestion(const MyString& description, int points, const MyString& correctAnswer);
 

@@ -1,6 +1,18 @@
 #include "ShortAnswerQuestion.h"
 #include <iostream>
 
+void ShortAnswerQuestion::normalizeAnswer(MyString& str)
+{
+	size_t len = str.getSize();
+	for (size_t i = 0; i < len; i++)
+	{
+		if (str[i] >= 'A' && str[i] <= 'Z')
+		{
+			str[i] = str[i] - 'A' + 'a';
+		}
+	}
+}
+
 ShortAnswerQuestion::ShortAnswerQuestion(const MyString& description, int points, const MyString& correctAnswer)
 	:Question(description, points)
 {
@@ -16,6 +28,8 @@ void ShortAnswerQuestion::answerTest()
 {
 	MyString answer;
 	std::cin >> answer;
+	normalizeAnswer(answer);
+
 	if (answer == correctAnswer)
 	{
 		std::cout << "Correct!\n";
@@ -30,6 +44,8 @@ bool ShortAnswerQuestion::answerNormal()
 {
 	MyString answer;
 	std::cin >> answer;
+	normalizeAnswer(answer);
+
 	if (answer == correctAnswer)
 	{
 		return true;

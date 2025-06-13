@@ -2,43 +2,6 @@
 #include <iostream>
 #include <sstream>
 
-char MultipleChoiceQuestion::getLetter(const char* str)
-{
-	if (!str) return '\0';
-	
-    char result = 0;
-	size_t i = 0;
-	
-	while (str[i] == ' ') i++;
-
-	if (str[i] >= 'A' && str[i] <= 'Z')
-	{
-		result = str[i];
-		return result;
-	}
-
-	return '\0';
-}
-
-MyString MultipleChoiceQuestion::normalize(const MyString& str)
-{
-	MyString toReturn = str;
-
-	int i = 0;
-	while (toReturn[i])
-	{
-		if (toReturn[i] >= 'a' && toReturn[i] <= 'z')
-		{
-			//toReturn[i] = std::toupper(toReturn[i]);
-			toReturn[i] = 'A' + toReturn[i] - 'a';
-		}
-		i++;
-	}
-
-	return toReturn;
-}
-
-
 bool MultipleChoiceQuestion::contains(char ch) const
 {
 	for (size_t i = 0; i < rightAnswers.getSize(); i++)
@@ -76,14 +39,14 @@ void MultipleChoiceQuestion::answerTest()
 {
 	MyString answer;
 	std::cin >> answer;
-	answer = normalize(answer);
+	answer = Helpers::normalize(answer);
 	std::stringstream ss(answer.c_str());
 	std::string token;
 	MyVector<char> userAnswers;
 
 	while (std::getline(ss, token, ','))
 	{
-		char option = getLetter(token.c_str());
+		char option = Helpers::getLetter(token.c_str());
 		userAnswers.push_back(option);
 	}
 
@@ -119,14 +82,14 @@ bool MultipleChoiceQuestion::answerNormal()
 {
 	MyString answer;
 	std::cin >> answer;
-	answer = normalize(answer);
+	answer = Helpers::normalize(answer);
 	std::stringstream ss(answer.c_str());
 	std::string token;
 	MyVector<char> userAnswers;
 
 	while (std::getline(ss, token, ','))
 	{
-		char option = getLetter(token.c_str());
+		char option = Helpers::getLetter(token.c_str());
 		userAnswers.push_back(option);
 	}
 

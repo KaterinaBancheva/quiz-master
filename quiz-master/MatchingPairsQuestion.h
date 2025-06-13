@@ -1,7 +1,7 @@
 #pragma once
 #include "Question.h"
 #include "MyVector.hpp"
-#include "Pair.h"
+#include "Helpers.h"
 
 class MatchingPairsQuestion :
     public Question
@@ -11,7 +11,6 @@ private:
     MyVector<Pair> answers;
     int pointsToGet = points;
 
-    Pair getPair(const char* str);
     bool contains(const Pair& p) const;
 public:
     MatchingPairsQuestion();

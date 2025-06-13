@@ -1,5 +1,25 @@
 #include "Quiz.h"
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+MyVector<unsigned> Quiz::shuffleArray(size_t size) const
+{
+	MyVector<unsigned> indexes;
+	for (size_t i = 0; i < size; i++)
+	{
+		indexes.push_back(i);
+	}
+
+	while (size > 1)
+	{
+		unsigned index = rand() % size;
+		std::swap(indexes[index], indexes[size - 1]);
+		size--;
+	}
+
+	return indexes;
+}
 
 Quiz::Quiz(const MyString& title)
 {
@@ -28,7 +48,17 @@ WorkMode Quiz::getWorkMode() const
 
 unsigned Quiz::getPlaysCount() const
 {
-	return playCounts;
+	return playsCount;
+}
+
+unsigned Quiz::getLikesCount() const
+{
+	return likesCount;
+}
+
+const MyString& Quiz::getCreaterUsername() const
+{
+	return createrUsername;
 }
 
 void Quiz::setWorkMode(const WorkMode mode)
@@ -47,6 +77,7 @@ void Quiz::like()
 	if (liked == false)
 	{
 		liked = true;
+		likesCount++;
 		std::cout << "Quiz with id " << id << " liked \n";
 	}
 	else
@@ -60,6 +91,7 @@ void Quiz::unlike()
 	if (liked == true)
 	{
 		liked = false;
+		likesCount--;
 		std::cout << "Quiz with id " << id << " unliked \n";
 	}
 	else
@@ -81,19 +113,38 @@ void Quiz::shuffle()
 
 void Quiz::play()
 {
-	playCounts++;
+	collectedPoints = 0;
+	playsCount++;
+	MyVector<unsigned> indexes;
+	if (shuffleOn)
+	{
+		indexes = shuffleArray(questions.getSize());
+		/*std::cout << "Shuffled indexes: ";
+		for (size_t i = 0; i < indexes.getSize(); i++)
+		{
+			std::cout << indexes[i] << ' ';
+		}
+		std::cout << '\n';*/
+	}
+	else
+	{
+		for (size_t i = 0; i < questions.getSize(); i++)
+			indexes.push_back(i);
+	}
+
 	if (mode == WorkMode::Normal)
 	{
 		int sum = 0;
 		std::cout << "Play " << title << ": \n";
 		for (size_t i = 0; i < questions.getSize(); i++)
 		{
-			sum += questions[i]->getQuestionPoints();
+			size_t realIndex = indexes[i];
+			sum += questions[realIndex]->getQuestionPoints();
 			std::cout << "question " << i+1 << ":\n";
-			questions[i]->printNormal();
-			if (questions[i]->answerNormal())
+			questions[realIndex]->printNormal();
+			if (questions[realIndex]->answerNormal())
 			{
-				collectedPoints += questions[i]->getQuestionPoints();
+				collectedPoints += questions[realIndex]->getQuestionPoints();
 			}
 		}
 		std::cout << "Your quiz score is " << collectedPoints <<  '/' << sum <<  '\n';
@@ -103,9 +154,10 @@ void Quiz::play()
 		std::cout << "Play " << title << ": \n";
 		for (size_t i = 0; i < questions.getSize(); i++)
 		{
+			size_t realIndex = indexes[i];
 			std::cout << "question " << i+1 << ":\n";
-			questions[i]->printTest();
-			questions[i]->answerTest();
+			questions[realIndex]->printTest();
+			questions[realIndex]->answerTest();
 		}
 	}
 	
@@ -120,6 +172,19 @@ void Quiz::saveToFile(std::ofstream& ofs) const
 		ofs << i + 1 << ')';
 		questions[i]->saveToFile(ofs);
 		ofs << '\n';
+	}
+}
+
+void Quiz::displayQuiz() const
+{
+	std::cout << title << " - " << questionsCount << " questions \n";
+	std::cout << "By: " << createrNames << createrUsername << "\n";
+	std::cout << "Likes: " << likesCount << "\n";
+	for (size_t i = 0; i < questionsCount; i++)
+	{
+		std::cout << i + 1 << ')';
+		questions[i]->printTest();
+		std::cout << '\n';
 	}
 }
 
