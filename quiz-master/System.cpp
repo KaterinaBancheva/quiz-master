@@ -301,6 +301,8 @@ void System::startQuiz_normal(unsigned quizId, bool shuffle)
 			allQuizzes[index].setWorkMode(WorkMode::Normal);
 
 			allQuizzes[index].play();
+			int points = allQuizzes[index].getCollectedPoints();
+			dynamic_cast<Player*>(loggedUser)->getPointsNormal(points);
 		}
 		else
 		{
@@ -326,6 +328,8 @@ void System::startQuiz_test(unsigned quizId, bool shuffle)
 			allQuizzes[index].setWorkMode(WorkMode::Test);
 
 			allQuizzes[index].play();
+
+			dynamic_cast<Player*>(loggedUser)->getPointsTest();
 		}
 		else
 		{

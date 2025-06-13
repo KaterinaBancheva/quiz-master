@@ -17,23 +17,34 @@ private:
 	MyVector<Quiz> allQuizzes;
 	MyVector<User*> allUsers;
 	User* loggedUser;
+	MyVector<Challenge> allChallenges;
 
 	int findQuizById(unsigned id) const;
 	int findUserByNickname(const MyString& nickname) const;
+	/*const Challenge* findChallengeById(const MyVector<Challenge>& allChallenges, unsigned id) 
+	{
+		for (size_t i = 0; i < allChallenges.getSize(); ++i) 
+		{
+			if (allChallenges[i].getId() == id)
+				return &allChallenges[i];
+		}
+		return nullptr;
+	}*/
 public:
 	void login(const MyString& username, const MyString& password);
 	void logout();
 	void help();
+	void quit();
 
-	/*void saveToBinaryFile();
-	void readFromBinaryFile(); */
+	void saveToBinaryFile();
+	void readFromBinaryFile(); 
 	
 	//player function
 	void signUp(const MyString& name, const MyString& familyName, const MyString& username, const MyString& password, const MyString& password2);
 	void viewProfile() const;
 	void view(const MyString& nickname) const;
-	void viewChallenges() const;
-	void viewFinishedChallenges() const;
+	void viewChallenges() const; // display all
+	void viewFinishedChallenges() const;// call player function
 	void messages() const;
 	void createQuiz();
 	void quizzes() const;

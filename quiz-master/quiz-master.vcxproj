@@ -128,14 +128,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Administrator.cpp" />
-    <ClCompile Include="Challange.cpp" />
+    <ClCompile Include="Challenge.cpp" />
     <ClCompile Include="Helpers.cpp" />
-    <ClCompile Include="Mailbox.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="Pair.cpp" />
     <ClCompile Include="MatchingPairsQuestion.cpp" />
     <ClCompile Include="MultipleChoiceQuestion.cpp" />
     <ClCompile Include="MyString.cpp" />
+    <ClCompile Include="PersonalChallenge.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Question.cpp" />
     <ClCompile Include="quiz-master.cpp" />
@@ -148,15 +148,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Administrator.h" />
-    <ClInclude Include="Challange.h" />
+    <ClInclude Include="Challenge.h" />
     <ClInclude Include="Helpers.h" />
-    <ClInclude Include="Mailbox.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="Pair.h" />
     <ClInclude Include="MatchingPairsQuestion.h" />
     <ClInclude Include="MultipleChoiceQuestion.h" />
     <ClInclude Include="MyString.h" />
     <ClInclude Include="MyVector.hpp" />
+    <ClInclude Include="PersonalChallenge.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Question.h" />
     <ClInclude Include="Quiz.h" />

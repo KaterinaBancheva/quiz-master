@@ -3,24 +3,6 @@
 #include <cstdlib>
 #include <ctime>
 
-MyVector<unsigned> Quiz::shuffleArray(size_t size) const
-{
-	MyVector<unsigned> indexes;
-	for (size_t i = 0; i < size; i++)
-	{
-		indexes.push_back(i);
-	}
-
-	while (size > 1)
-	{
-		unsigned index = rand() % size;
-		std::swap(indexes[index], indexes[size - 1]);
-		size--;
-	}
-
-	return indexes;
-}
-
 Quiz::Quiz(const MyString& title)
 {
 	this->title = title;
@@ -59,6 +41,11 @@ unsigned Quiz::getLikesCount() const
 const MyString& Quiz::getCreaterUsername() const
 {
 	return createrUsername;
+}
+
+int Quiz::getCollectedPoints() const
+{
+	return collectedPoints;
 }
 
 void Quiz::setWorkMode(const WorkMode mode)
@@ -118,7 +105,7 @@ void Quiz::play()
 	MyVector<unsigned> indexes;
 	if (shuffleOn)
 	{
-		indexes = shuffleArray(questions.getSize());
+		indexes = Helpers::shuffleArray(questions.getSize());
 		/*std::cout << "Shuffled indexes: ";
 		for (size_t i = 0; i < indexes.getSize(); i++)
 		{

@@ -1,5 +1,6 @@
 #pragma once
 #include "MyString.h"
+#include "MyVector.hpp"
 #include "Pair.h"
 
 namespace Helpers
@@ -8,5 +9,9 @@ namespace Helpers
 	char getLetter(const char* str);
 
 	Pair getPair(const char* str);
+
+	MyVector<unsigned> shuffleArray(size_t size);
+
+	int contains(unsigned id, MyVector<unsigned> vector);
 };
 

@@ -2,6 +2,7 @@
 #include "MyString.h"
 #include "MyVector.hpp"
 #include "Question.h"
+#include "Helpers.h"
 
 static size_t constexpr INITIAL_QUESTIONS_COUNT = 5;
 
@@ -24,11 +25,10 @@ private:
 	unsigned playsCount;
 	unsigned likesCount;
 	int collectedPoints;
-	bool shuffleOn; // may be function
+	bool shuffleOn; 
 	bool liked; // when profile
 
 	//bool favourites; // -> player functions
-	MyVector<unsigned> shuffleArray(size_t size) const;
 public:
 	Quiz() = default;
 	Quiz(const MyString& title);
@@ -40,6 +40,7 @@ public:
 	unsigned getPlaysCount() const;
 	unsigned getLikesCount() const;
 	const MyString& getCreaterUsername() const;
+	int getCollectedPoints() const;
 
 	void setWorkMode(const WorkMode mode);
 

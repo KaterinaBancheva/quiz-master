@@ -58,6 +58,35 @@ Pair Helpers::getPair(const char* str)
 	return Pair(lhs, rhs);
 }
 
+MyVector<unsigned> Helpers::shuffleArray(size_t size) 
+{
+	MyVector<unsigned> indexes;
+	for (size_t i = 0; i < size; i++)
+	{
+		indexes.push_back(i);
+	}
+
+	while (size > 1)
+	{
+		unsigned index = rand() % size;
+		std::swap(indexes[index], indexes[size - 1]);
+		size--;
+	}
+
+	return indexes;
+}
+
+int Helpers::contains(unsigned id, MyVector<unsigned> vector)
+{
+	for (size_t i = 0; i < vector.getSize(); i++)
+	{
+		if (vector[i] == id)
+			return i;
+	}
+
+	return -1;
+}
+
 MyString Helpers::normalize(const MyString& str)
 {
 	MyString toReturn = str;

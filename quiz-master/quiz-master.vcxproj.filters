@@ -33,7 +33,7 @@
     <ClCompile Include="System.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Challange.cpp">
+    <ClCompile Include="Challenge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MatchingPairsQuestion.cpp">
@@ -72,10 +72,10 @@
     <ClCompile Include="Message.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Mailbox.cpp">
+    <ClCompile Include="Helpers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Helpers.cpp">
+    <ClCompile Include="PersonalChallenge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,7 +86,7 @@
     <ClInclude Include="System.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Challange.h">
+    <ClInclude Include="Challenge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MatchingPairsQuestion.h">
@@ -131,10 +131,10 @@
     <ClInclude Include="Message.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Mailbox.h">
+    <ClInclude Include="Helpers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Helpers.h">
+    <ClInclude Include="PersonalChallenge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

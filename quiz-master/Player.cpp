@@ -1,16 +1,5 @@
 #include "Player.h"
 
-int Player::contains(unsigned id, MyVector<unsigned> vector) const
-{
-	for (size_t i = 0; i < vector.getSize(); i++)
-	{
-		if (vector[i] == id)
-			return i;
-	}
-	
-	return -1;
-}
-
 Player::Player(const MyString& name, const MyString& familyName, const MyString& username, const MyString& password, UserType& type)
 	:User(name, familyName, username, password) 
 {
@@ -19,13 +8,13 @@ Player::Player(const MyString& name, const MyString& familyName, const MyString&
 
 void Player::addToFavs(unsigned quizId)
 {
-	if(contains(quizId, favourites) == -1)
+	if(Helpers::contains(quizId, favourites) == -1)
 		favourites.push_back(quizId);
 }
 
 void Player::removeFromFavs(unsigned quizId)
 {
-	unsigned index = contains(quizId, favourites);
+	unsigned index = Helpers::contains(quizId, favourites);
 
 	if (index == -1)
 	{
@@ -40,13 +29,13 @@ void Player::removeFromFavs(unsigned quizId)
 
 void Player::likeQuiz(unsigned quizId)
 {
-	if (contains(quizId, liked) == -1)
+	if (Helpers::contains(quizId, liked) == -1)
 		liked.push_back(quizId);
 }
 
 void Player::unlikeQuiz(unsigned quizId)
 {
-	unsigned index = contains(quizId, liked);
+	unsigned index = Helpers::contains(quizId, liked);
 
 	if (index == -1)
 	{
@@ -57,6 +46,17 @@ void Player::unlikeQuiz(unsigned quizId)
 		std::swap(liked[index], liked[liked.getSize() - 1]);
 		liked.pop_back();
 	}
+}
+
+void Player::getPointsNormal(int points)
+{
+	quizzesInNormalMode++;
+	this->points += points;
+}
+
+void Player::getPointsTest()
+{
+	quizzesInTestMode++;
 }
 
 UserType Player::getUserType() const
