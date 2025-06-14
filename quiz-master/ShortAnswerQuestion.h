@@ -9,6 +9,7 @@ private:
 
     void normalizeAnswer(MyString& str);
 public:
+    ShortAnswerQuestion();
     ShortAnswerQuestion(const MyString& description, int points, const MyString& correctAnswer);
 
     Question* clone() const override;

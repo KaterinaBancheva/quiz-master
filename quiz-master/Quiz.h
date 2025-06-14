@@ -2,6 +2,11 @@
 #include "MyString.h"
 #include "MyVector.hpp"
 #include "Question.h"
+#include "ShortAnswerQuestion.h"
+#include "TrueOrFalseQuestion.h"
+#include "SingleChoiceQuestion.h"
+#include "MatchingPairsQuestion.h"
+#include "MultipleChoiceQuestion.h"
 #include "Helpers.h"
 
 static size_t constexpr INITIAL_QUESTIONS_COUNT = 5;
@@ -26,12 +31,11 @@ private:
 	unsigned likesCount;
 	int collectedPoints;
 	bool shuffleOn; 
-	bool liked; // when profile
-
-	//bool favourites; // -> player functions
+	bool liked;
 public:
 	Quiz() = default;
 	Quiz(const MyString& title);
+	~Quiz();
 
 	unsigned getId() const;
 	const MyString& getTitle() const;
@@ -50,17 +54,16 @@ public:
 	void unlike();
 	bool isLiked() const;
 
-	void shuffle(); // ?
+	void shuffle();
 	void play();
 
 	void saveToFile(std::ofstream& ofs) const;
-	void readFromBinaryFile();
-	void saveToBinaryFile();
+	void readFromBinaryFile(std::ifstream& ifs);
+	void saveToBinaryFile(std::ofstream& ofs) const; 
 
-	void sendToApproval() const;
+	//void sendToApproval() const;
 
 	void displayQuiz() const;
-
-	// void addToFavourites(); -> player functions
+	void displayPendingQuiz() const;
 };
 

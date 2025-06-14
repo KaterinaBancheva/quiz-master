@@ -8,7 +8,7 @@ enum class ChallengeType
 	CreatedQuizes
 };
 
-static unsigned counter;
+static unsigned counter = 0;
 
 class Challenge
 {
@@ -27,7 +27,8 @@ public:
 	int getCount() const;
 	ChallengeType getChallengeType() const;
 
-	int getPoints();
+	int getPoints() const;
+	void print() const;
 
 	void saveToBinaryFile(std::ofstream& ofs) const;
 	void readFromBinaryFile(std::ifstream& ifs);

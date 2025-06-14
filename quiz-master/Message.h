@@ -20,7 +20,7 @@ public:
 	const MyString& getReceiver() const;
 	const MyString& getContent() const;
 
-	void saveToFile(std::ofstream& ofs) const;
-	void readFromFile(std::ifstream& ifs);
+	void saveToBinaryFile(std::ofstream& ofs) const;
+	void readFromBinaryFile(std::ifstream& ifs);
 };
 

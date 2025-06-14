@@ -7,6 +7,7 @@ class TrueOrFalseQuestion :
 private:
     bool correctAnswer;
 public:
+    TrueOrFalseQuestion();
     TrueOrFalseQuestion(const MyString& description, int points, bool correctAnswer);
 
     Question* clone() const override;

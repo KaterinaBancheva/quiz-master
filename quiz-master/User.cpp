@@ -22,3 +22,9 @@ const MyString& User::getUsername() const
 {
 	return username;
 }
+
+bool User::checkPassword(const MyString& password) const
+{
+	return this->password == password;
+}
+

@@ -13,7 +13,10 @@ bool MatchingPairsQuestion::contains(const Pair& p) const
 }
 
 MatchingPairsQuestion::MatchingPairsQuestion()
-    :Question(" ", 0) {}
+	:Question(" ", 0)
+{
+	type = QuestionType::MP;
+}
 
 MatchingPairsQuestion::MatchingPairsQuestion(const MyString& description, int points, MyVector<MyString>& leftColumn,
 	MyVector<MyString>& rightColumn, MyVector<Pair>& answers): Question(description, points)
@@ -22,6 +25,7 @@ MatchingPairsQuestion::MatchingPairsQuestion(const MyString& description, int po
     this->rightColumn = rightColumn;
 	this->answers = answers;
 	this->pointsToGet = points;
+	type = QuestionType::MP;
 }
 
 int MatchingPairsQuestion::getQuestionPoints() const

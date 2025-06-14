@@ -1,10 +1,13 @@
 #include "TrueOrFalseQuestion.h"
 #include <iostream>
 
+TrueOrFalseQuestion::TrueOrFalseQuestion() : Question(" ", 0) { type = QuestionType::TF; }
+
 TrueOrFalseQuestion::TrueOrFalseQuestion(const MyString& description, int points, bool correctAnswer)
 	:Question(description, points)
 {
 	this->correctAnswer = correctAnswer;
+	type = QuestionType::TF;
 }
 
 Question* TrueOrFalseQuestion::clone() const

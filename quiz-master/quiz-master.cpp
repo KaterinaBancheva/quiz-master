@@ -71,7 +71,7 @@ int main()
 	////q1.play();
 	////q1.saveToFile(offs);
 
-	System s;
+	System& s = System::getInstance();
 	s.createQuiz();
 	s.quizzes();
 }

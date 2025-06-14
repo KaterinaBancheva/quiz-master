@@ -1,11 +1,20 @@
 #pragma once
 #include "MyString.h"
+enum class QuestionType
+{
+	ShA,
+	SC,
+	MC,
+	MP,
+	TF
+};
 
 class Question
 {
 protected:
 	MyString description;
 	int points;
+	QuestionType type;
 public:
 	Question(const MyString& description, int points);
 
@@ -22,5 +31,6 @@ public:
 
 	virtual int getQuestionPoints() const;
 	const MyString& getDescription() const;
+	QuestionType getType() const;
 };
 

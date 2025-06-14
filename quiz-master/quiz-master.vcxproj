@@ -140,6 +140,7 @@
     <ClCompile Include="Question.cpp" />
     <ClCompile Include="quiz-master.cpp" />
     <ClCompile Include="Quiz.cpp" />
+    <ClCompile Include="Report.cpp" />
     <ClCompile Include="ShortAnswerQuestion.cpp" />
     <ClCompile Include="SingleChoiceQuestion.cpp" />
     <ClCompile Include="System.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Question.h" />
     <ClInclude Include="Quiz.h" />
+    <ClInclude Include="Report.h" />
     <ClInclude Include="ShortAnswerQuestion.h" />
     <ClInclude Include="SingleChoiceQuestion.h" />
     <ClInclude Include="System.h" />

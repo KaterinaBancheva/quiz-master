@@ -15,3 +15,8 @@ const MyString& Question::getDescription() const
 {
     return description;
 }
+
+QuestionType Question::getType() const
+{
+    return type;
+}

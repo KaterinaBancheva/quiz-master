@@ -1,6 +1,8 @@
 #include "SingleChoiceQuestion.h"
 #include <iostream>
 
+SingleChoiceQuestion::SingleChoiceQuestion() : Question(" ", 0) { type = QuestionType::SC; }
+
 SingleChoiceQuestion::SingleChoiceQuestion(const MyString& description, int points, const MyString& a1, const MyString& a2, const MyString& a3,
 	const MyString& a4, char right) :Question(description, points)
 {
@@ -9,6 +11,7 @@ SingleChoiceQuestion::SingleChoiceQuestion(const MyString& description, int poin
     answer3 = a3;
     answer4 = a4;
     rightAnswer = right;
+	type = QuestionType::SC;
 }
 
 Question* SingleChoiceQuestion::clone() const

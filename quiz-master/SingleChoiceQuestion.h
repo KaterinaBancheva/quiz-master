@@ -7,6 +7,7 @@ private:
     MyString answer1, answer2, answer3, answer4;
     char rightAnswer;
 public:
+    SingleChoiceQuestion();
     SingleChoiceQuestion(const MyString& description, int points, const MyString& a1, const MyString& a2, const MyString& a3, const MyString& a4, char right);
    
     Question* clone() const override;

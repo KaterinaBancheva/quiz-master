@@ -8,6 +8,12 @@ Quiz::Quiz(const MyString& title)
 	this->title = title;
 }
 
+Quiz::~Quiz()
+{
+	for (size_t i = 0; i < questions.getSize(); ++i)
+		delete questions[i];
+}
+
 unsigned Quiz::getId() const
 {
 	return id;
@@ -162,6 +168,49 @@ void Quiz::saveToFile(std::ofstream& ofs) const
 	}
 }
 
+void Quiz::readFromBinaryFile(std::ifstream& ifs)
+{
+	ifs.read((char*)&id, sizeof(id));
+	title.read(ifs);
+	ifs.read((char*)&questionsCount, sizeof(questionsCount));
+	questions.clear();
+	for (size_t i = 0; i < questionsCount; i++)
+	{
+		Question* q = nullptr;
+		QuestionType type;
+		ifs.read((char*)&type, sizeof(type));
+		switch (type)
+		{
+		case QuestionType::ShA: q = new ShortAnswerQuestion(); break;
+		case QuestionType::SC: q = new SingleChoiceQuestion(); break;
+		case QuestionType::MC: q = new MultipleChoiceQuestion(); break;
+		case QuestionType::MP: q = new MatchingPairsQuestion(); break;
+		case QuestionType::TF: q = new TrueOrFalseQuestion(); break;
+		default: throw std::logic_error("Invalid question type!"); break;
+		}
+
+		q->readFromBinaryFile(ifs);
+		questions.push_back(q);
+	}
+	createrNames.read(ifs);
+	createrUsername.read(ifs);
+}
+
+void Quiz::saveToBinaryFile(std::ofstream& ofs) const
+{
+	ofs.write((const char*)&id, sizeof(id));
+	title.write(ofs);
+	ofs.write((const char*)&questionsCount, sizeof(questionsCount));
+	for (size_t i = 0; i < questionsCount; i++)
+	{
+		QuestionType type = questions[i]->getType();
+		ofs.write((const char*)&type, sizeof(type));
+		questions[i]->saveToBinaryFile(ofs);
+	}
+	createrNames.write(ofs);
+	createrUsername.write(ofs);
+}
+
 void Quiz::displayQuiz() const
 {
 	std::cout << title << " - " << questionsCount << " questions \n";
@@ -173,6 +222,11 @@ void Quiz::displayQuiz() const
 		questions[i]->printTest();
 		std::cout << '\n';
 	}
+}
+
+void Quiz::displayPendingQuiz() const
+{
+	std::cout << "[ id " << id << " ] " << title << "By: " << createrUsername << "\n";
 }
 
 

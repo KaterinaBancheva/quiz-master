@@ -1,6 +1,7 @@
 #include "Challenge.h"
+#include <iostream>
 
-unsigned counter = 0;
+//unsigned counter = 0;
 
 Challenge::Challenge()
 {
@@ -48,7 +49,7 @@ ChallengeType Challenge::getChallengeType() const
 	return type;
 }
 
-int Challenge::getPoints()
+int Challenge::getPoints() const
 {
 	switch (type)
 	{
@@ -56,6 +57,23 @@ int Challenge::getPoints()
 	case ChallengeType::SolvingInNormalMode: return 2 * (count * 10) / 3;
 	case ChallengeType::CreatedQuizes: return (count * 10) / 2;
 	default: return 0;
+	}
+}
+
+void Challenge::print() const
+{
+	if (type == ChallengeType::CreatedQuizes)
+		std::cout << "Create ";
+	else
+		std::cout << "Solve";
+
+	std::cout << count << " quizzes ";
+	switch (type)
+	{
+	case ChallengeType::SolvingInTestMode: std::cout << " in test mode!\n";
+	case ChallengeType::SolvingInNormalMode: std::cout << " in normal mode!\n";
+	case ChallengeType::CreatedQuizes: std::cout << '\n';
+	default: return;
 	}
 }
 

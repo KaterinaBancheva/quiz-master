@@ -12,7 +12,7 @@ bool MultipleChoiceQuestion::contains(char ch) const
 	return false;
 }
 
-MultipleChoiceQuestion::MultipleChoiceQuestion() : Question("", 0) {}
+MultipleChoiceQuestion::MultipleChoiceQuestion() : Question("", 0) { type = QuestionType::MC; }
 
 MultipleChoiceQuestion::MultipleChoiceQuestion(const MyString& description, int points, const MyVector<MyString>& options,
 	const MyVector<char>& rightAnswers) : Question(description, points)
@@ -23,6 +23,7 @@ MultipleChoiceQuestion::MultipleChoiceQuestion(const MyString& description, int 
 	this->options = options;
 	this->rightAnswers = rightAnswers;
 	pointsToGet = points;
+	type = QuestionType::MC;
 }
 
 int MultipleChoiceQuestion::getQuestionPoints() const

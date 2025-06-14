@@ -44,7 +44,7 @@ const MyString& Message::getContent() const
     return content;
 }
 
-void Message::saveToFile(std::ofstream& ofs) const
+void Message::saveToBinaryFile(std::ofstream& ofs) const
 {
     sender.write(ofs);
     receiver.write(ofs);
@@ -52,7 +52,7 @@ void Message::saveToFile(std::ofstream& ofs) const
     content.write(ofs);
 }
 
-void Message::readFromFile(std::ifstream& ifs)
+void Message::readFromBinaryFile(std::ifstream& ifs)
 {
     sender.read(ifs);
     receiver.read(ifs);

@@ -1,7 +1,7 @@
 #pragma once
+#include "Quiz.h"
 #include "MyVector.hpp"
 #include "User.h"
-#include "Quiz.h"
 #include "PersonalChallenge.h"
 
 class Player : public User
@@ -15,13 +15,15 @@ private:
 	unsigned level;
 	MyVector<unsigned> createdQuizes;
 	MyVector<PersonalChallenge> challenges;
-public:
-	Player(const MyString& name, const MyString& familyName, const MyString& username, const MyString& password, UserType& type);
 
-	void signUp(const MyString& name, const MyString& familyName, const MyString& username, const MyString& password, const MyString& password2);
-	void viewProfile() const;
-	void viewChallenges() const;
-	void viewFinishedChallenges() const;
+	bool contains(unsigned id) const;
+	int findQuizById(const MyVector<Quiz>& vector, unsigned id) const;
+public:
+	Player();
+	Player(const MyString& name, const MyString& familyName, const MyString& username, const MyString& password);
+
+	void viewProfile(const MyVector<Quiz>& allQuizzes) const; // level!!!!!
+	void viewFinishedChallenges(const MyVector<Challenge> allChallenges) const;
 	void createQuiz(unsigned id);
 
 	void addToFavs(unsigned quizId);
@@ -41,4 +43,5 @@ public:
 	UserType getUserType() const override;
 	void saveToBinaryFile(std::ofstream& ofs) const override;
 	void readFromBinaryFile(std::ifstream& ifs) override;
+	~Player() override = default;
 };

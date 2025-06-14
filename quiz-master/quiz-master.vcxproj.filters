@@ -78,6 +78,9 @@
     <ClCompile Include="PersonalChallenge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Report.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Quiz.h">
@@ -135,6 +138,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PersonalChallenge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Report.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

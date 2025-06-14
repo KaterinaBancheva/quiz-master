@@ -11,6 +11,7 @@ private:
 	unsigned challengeId;
 	MyString username;
 	time_t time;
+	MyString date;
 	MyString message;
 public:
 	PersonalChallenge();
@@ -20,6 +21,8 @@ public:
 	const MyString& getUsername() const;
 	unsigned getChallengeId() const;
 	const MyString& getTime() const;
+
+	void print(const Challenge* c) const;
 
 	void saveToBinaryFile(std::ofstream& ofs) const;
 	void readFromBinaryFile(std::ifstream& ifs);

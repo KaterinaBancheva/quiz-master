@@ -1,5 +1,6 @@
 #pragma once
 #include "MyString.h"
+#include "Quiz.h"
 #include "MyVector.hpp"
 #include "Pair.h"
 

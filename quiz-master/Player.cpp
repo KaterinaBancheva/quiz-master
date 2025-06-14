@@ -1,9 +1,59 @@
 #include "Player.h"
 
-Player::Player(const MyString& name, const MyString& familyName, const MyString& username, const MyString& password, UserType& type)
+bool Player::contains(unsigned id) const
+{
+	for (size_t i = 0; i < challenges.getSize(); i++)
+	{
+		if (challenges[i].getChallengeId() == id)
+			return true;
+	}
+	return false;
+}
+
+int Player::findQuizById(const MyVector<Quiz>& vector, unsigned id) const
+{
+	for (size_t i = 0; i < vector.getSize(); i++)
+	{
+		if (vector[i].getId() == id)
+			return static_cast<int>(i);
+	}
+
+	return -1;
+}
+
+Player::Player() : User(" ", " ", " ", " ")
+{
+	type = UserType::Player;
+}
+
+Player::Player(const MyString& name, const MyString& familyName, const MyString& username, const MyString& password)
 	:User(name, familyName, username, password) 
 {
-	this->type = type;
+	type = UserType::Player;
+}
+
+void Player::viewProfile(const MyVector<Quiz>& allQuizzes) const
+{
+	std::cout << name << ' ' << familyName << ' ' << username << '\n';
+	//std::cout << level << "\n\n"
+	std::cout << "Created quizzes: \n";
+	for (size_t i = 0; i < createdQuizes.getSize(); i++)
+	{
+		int index = findQuizById(allQuizzes, createdQuizes[i]);
+		std::cout << "[ " << createdQuizes[i] << " ] " << allQuizzes[index].getTitle() << '\n';
+	}
+}
+
+void Player::viewFinishedChallenges(const MyVector<Challenge> allChallenges) const
+{
+	for (size_t i = 0; i < allChallenges.getSize(); i++)
+	{
+		int index = contains(allChallenges[i].getId());
+		if (index != -1);
+		{
+			challenges[index].print(&allChallenges[i]);
+		}
+	}
 }
 
 void Player::createQuiz(unsigned id)
@@ -83,9 +133,28 @@ void Player::finishChallenge(unsigned id)
 {
 	PersonalChallenge* c = new PersonalChallenge(username, id);
 	challenges.push_back(*c);
+	std::cout << c->getMessage();
 }
 
 UserType Player::getUserType() const
 {
 	return UserType::Player;
+}
+
+void Player::saveToBinaryFile(std::ofstream& ofs) const
+{
+	ofs.write((const char*)&type, sizeof(type));
+	name.write(ofs);
+	familyName.write(ofs);
+	username.write(ofs);
+	password.write(ofs);
+}
+
+void Player::readFromBinaryFile(std::ifstream& ifs)
+{
+	ifs.read((char*)&type, sizeof(type));
+	name.read(ifs);
+	familyName.read(ifs);
+	username.read(ifs);
+	password.read(ifs);
 }

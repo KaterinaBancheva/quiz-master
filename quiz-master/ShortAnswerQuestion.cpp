@@ -13,10 +13,13 @@ void ShortAnswerQuestion::normalizeAnswer(MyString& str)
 	}
 }
 
+ShortAnswerQuestion::ShortAnswerQuestion() : Question(" ", 0) { type = QuestionType::ShA; }
+
 ShortAnswerQuestion::ShortAnswerQuestion(const MyString& description, int points, const MyString& correctAnswer)
 	:Question(description, points)
 {
 	this->correctAnswer = correctAnswer;
+	type = QuestionType::ShA;
 }
 
 Question* ShortAnswerQuestion::clone() const

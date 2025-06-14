@@ -1,5 +1,6 @@
 #pragma once
 #include "Question.h"
+#include "Pair.h"
 #include "MyVector.hpp"
 #include "Helpers.h"
 
