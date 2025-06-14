@@ -20,7 +20,7 @@ private:
 
 public:
 	Challenge();
-	Challenge(const MyString& text, ChallengeType& type);
+	Challenge(ChallengeType& type, int count);
 
 	const MyString& getText() const;
 	unsigned getId() const;

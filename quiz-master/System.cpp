@@ -9,6 +9,11 @@ void System::viewProfile() const
 
 void System::view(const MyString& nickname) const
 {
+	if (loggedUser->getUserType() != UserType::Player)
+	{
+		throw std::logic_error("Only players can view profiles!");
+	}
+
 	int index = findUserByNickname(nickname);
 }
 
@@ -22,10 +27,10 @@ void System::messages() const
 
 void System::createQuiz()
 {
-	/*if (loggedUser->getUserType() != UserType::Player)
+	if (loggedUser->getUserType() != UserType::Player)
 	{
 		throw std::logic_error("Only players can create quizzes!");
-	}*/
+	}
 	
 	MyString title;
 	std::cout << "Enter quiz title: ";
@@ -201,6 +206,15 @@ void System::createQuiz()
 		}
 	}
 	allQuizzes.push_back(quiz);
+	unsigned id = quiz.getId();
+	Player* player = dynamic_cast<Player*>(loggedUser);
+	player->createQuiz(id);
+	int count = player->getCreatedQuizzes();
+	if (count % 5 == 0)
+	{
+		const Challenge* c = findChallenge(count, ChallengeType::CreatedQuizes);
+		player->finishChallenge(c->getId())
+	}
 }
 
 void System::quizzes() const
@@ -302,7 +316,15 @@ void System::startQuiz_normal(unsigned quizId, bool shuffle)
 
 			allQuizzes[index].play();
 			int points = allQuizzes[index].getCollectedPoints();
-			dynamic_cast<Player*>(loggedUser)->getPointsNormal(points);
+
+			Player* player = dynamic_cast<Player*>(loggedUser);
+			player->getPointsNormal(points);
+			int count = player->getQuizzesInNormalMode();
+			if (count % 5 == 0)
+			{
+				const Challenge* c = findChallenge(count, ChallengeType::SolvingInNormalMode);
+				player->finishChallenge(c->getId());
+			}
 		}
 		else
 		{
@@ -362,4 +384,22 @@ int System::findUserByNickname(const MyString& nickname) const
 	}
 
 	return -1;
+}
+
+const Challenge* System::findChallenge(int count, ChallengeType type)
+{
+	for (size_t i = 0; i < allChallenges.getSize(); ++i)
+	{
+		if (allChallenges[i].getCount() == count && allChallenges[i].getChallengeType() == type)
+			return &allChallenges[i];
+	}
+	
+	Challenge* challenge = new Challenge(type, count);
+	allChallenges.push_back(*challenge);
+}
+
+System& System::getInstance()
+{
+	static System instance;
+	return instance;
 }

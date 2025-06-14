@@ -20,10 +20,9 @@ public:
 
 	void signUp(const MyString& name, const MyString& familyName, const MyString& username, const MyString& password, const MyString& password2);
 	void viewProfile() const;
-	void view(const MyString& nickname) const;
 	void viewChallenges() const;
 	void viewFinishedChallenges() const;
-	void createQuiz();
+	void createQuiz(unsigned id);
 
 	void addToFavs(unsigned quizId);
 	void removeFromFavs(unsigned quizId);
@@ -32,6 +31,12 @@ public:
 
 	void getPointsNormal(int points);
 	void getPointsTest();
+
+	unsigned getQuizzesInNormalMode() const;
+	unsigned getQuizzesInTestMode() const;
+	unsigned getCreatedQuizzes() const;
+
+	void finishChallenge(unsigned id);
 
 	UserType getUserType() const override;
 	void saveToBinaryFile(std::ofstream& ofs) const override;

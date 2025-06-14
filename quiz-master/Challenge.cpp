@@ -10,12 +10,22 @@ Challenge::Challenge()
 	type = ChallengeType::CreatedQuizes;
 }
 
-Challenge::Challenge(const MyString& text, ChallengeType& type)
+Challenge::Challenge(ChallengeType& type, int count)
 {
 	id = counter;
 	counter++;
-	this->text = text;
 	this->type = type;
+	this->count = count;
+
+	text = "";
+	text += count;
+	switch (type)
+	{
+	case ChallengeType::SolvingInTestMode: text += " quizzes in test mode solved!";
+	case ChallengeType::SolvingInNormalMode: text += " quizzes in normal mode solved!";
+	case ChallengeType::CreatedQuizes: text += " quizzes created!";
+	default: return;
+	}
 }
 
 const MyString& Challenge::getText() const

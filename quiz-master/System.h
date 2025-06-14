@@ -21,16 +21,17 @@ private:
 
 	int findQuizById(unsigned id) const;
 	int findUserByNickname(const MyString& nickname) const;
-	/*const Challenge* findChallengeById(const MyVector<Challenge>& allChallenges, unsigned id) 
-	{
-		for (size_t i = 0; i < allChallenges.getSize(); ++i) 
-		{
-			if (allChallenges[i].getId() == id)
-				return &allChallenges[i];
-		}
-		return nullptr;
-	}*/
+	const Challenge* findChallenge(int count, ChallengeType type);
+
+	System();
+	~System();
 public:
+	System(const System& other) = delete;
+	System(System&& other) noexcept = delete;
+	System& operator= (const System& other) = delete;
+
+	static System& getInstance();
+
 	void login(const MyString& username, const MyString& password);
 	void logout();
 	void help();
@@ -38,6 +39,8 @@ public:
 
 	void saveToBinaryFile();
 	void readFromBinaryFile(); 
+
+	void setChallenges();
 	
 	//player function
 	void signUp(const MyString& name, const MyString& familyName, const MyString& username, const MyString& password, const MyString& password2);

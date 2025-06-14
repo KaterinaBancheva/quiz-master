@@ -7,11 +7,12 @@ PersonalChallenge::PersonalChallenge() : time (std::time(nullptr))
 	challengeId = 0;
 }
 
-PersonalChallenge::PersonalChallenge(const MyString& username, const MyString& message, unsigned challengeId) : time(std::time(nullptr))
+PersonalChallenge::PersonalChallenge(const MyString& username, unsigned challengeId) : time(std::time(nullptr))
 {
 	this->username = username;
-	this->message = message;
 	this->challengeId = challengeId;
+
+	message = 
 }
 
 const MyString& PersonalChallenge::getMessage() const

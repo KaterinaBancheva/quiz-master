@@ -6,6 +6,11 @@ Player::Player(const MyString& name, const MyString& familyName, const MyString&
 	this->type = type;
 }
 
+void Player::createQuiz(unsigned id)
+{
+	createdQuizes.push_back(id);
+}
+
 void Player::addToFavs(unsigned quizId)
 {
 	if(Helpers::contains(quizId, favourites) == -1)
@@ -57,6 +62,27 @@ void Player::getPointsNormal(int points)
 void Player::getPointsTest()
 {
 	quizzesInTestMode++;
+}
+
+unsigned Player::getQuizzesInNormalMode() const
+{
+	return quizzesInNormalMode;
+}
+
+unsigned Player::getQuizzesInTestMode() const
+{
+	return quizzesInTestMode;
+}
+
+unsigned Player::getCreatedQuizzes() const
+{
+	return createdQuizes.getSize();
+}
+
+void Player::finishChallenge(unsigned id)
+{
+	PersonalChallenge* c = new PersonalChallenge(username, id);
+	challenges.push_back(*c);
 }
 
 UserType Player::getUserType() const

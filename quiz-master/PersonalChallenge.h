@@ -14,7 +14,7 @@ private:
 	MyString message;
 public:
 	PersonalChallenge();
-	PersonalChallenge(const MyString& username, const MyString& message, unsigned challengeId);
+	PersonalChallenge(const MyString& username, unsigned challengeId);
 
 	const MyString& getMessage() const;
 	const MyString& getUsername() const;
