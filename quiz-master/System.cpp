@@ -4,11 +4,16 @@
 
 System::System()
 {
-	readFromBinaryFile();
+	addInitialAdmins();
+	//readFromBinaryFile();
 }
 
 void System::saveToBinaryFile() const
 {
+	std::ofstream ofs_users(bin_users.c_str(), std::ios::binary);
+	saveUsersToBinaryFile(ofs_users);
+	ofs_users.close();
+
 	std::ofstream ofs_mess(bin_messages.c_str(), std::ios::binary);
 	saveMessagesToBinaryFile(ofs_mess);
 	ofs_mess.close();
@@ -21,10 +26,6 @@ void System::saveToBinaryFile() const
 	saveChallengesToBinaryFile(ofs_chall);
 	ofs_chall.close();
 
-	std::ofstream ofs_users(bin_users.c_str(), std::ios::binary);
-	saveUsersToBinaryFile(ofs_users);
-	ofs_users.close();
-
 	std::ofstream ofs_pend(bin_pending.c_str(), std::ios::binary);
 	savePendingToBinaryFile(ofs_pend);
 	ofs_pend.close();
@@ -36,6 +37,10 @@ void System::saveToBinaryFile() const
 
 void System::readFromBinaryFile()
 {
+	std::ifstream ifs_users(bin_users.c_str(), std::ios::binary);
+	readUsersFromBinaryFile(ifs_users);
+	ifs_users.close();
+
 	std::ifstream ifs_mess(bin_messages.c_str(), std::ios::binary);
 	readMessagesFromBinaryFile(ifs_mess);
 	ifs_mess.close();
@@ -47,10 +52,6 @@ void System::readFromBinaryFile()
 	std::ifstream ifs_chall(bin_challenges.c_str(), std::ios::binary);
 	readChallengesFromBinaryFile(ifs_chall);
 	ifs_chall.close();
-
-	std::ifstream ifs_users(bin_users.c_str(), std::ios::binary);
-	readUsersFromBinaryFile(ifs_users);
-	ifs_users.close();
 
 	std::ifstream ifs_pend(bin_pending.c_str(), std::ios::binary);
 	readPendingFromBinaryFile(ifs_pend);
@@ -64,16 +65,16 @@ void System::readFromBinaryFile()
 void System::setChallenges()
 {
 	ChallengeType type = ChallengeType::CreatedQuizes;
-	Challenge* c = new Challenge(type, 5);
-	allChallenges.push_back(std::move(*c));
+	Challenge c(type, 5);
+	allChallenges.push_back(std::move(c));
 
 	type = ChallengeType::SolvingInTestMode;
-	Challenge* t = new Challenge(type, 5);
-	allChallenges.push_back(std::move(*t));
+	Challenge t(type, 5);
+	allChallenges.push_back(std::move(t));
 
 	type = ChallengeType::SolvingInNormalMode;
-	Challenge* n = new Challenge(type, 5);
-	allChallenges.push_back(std::move(*n));
+	Challenge n(type, 5);
+	allChallenges.push_back(std::move(n));
 }
 
 void System::signUp(const MyString& name, const MyString& familyName, const MyString& username, const MyString& password, const MyString& password2)
@@ -91,6 +92,11 @@ void System::signUp(const MyString& name, const MyString& familyName, const MySt
 
 void System::viewProfile() const
 {
+	if (loggedUser->getUserType() != UserType::Player)
+	{
+		throw std::logic_error("Only players can view profiles!");
+	}
+
 	dynamic_cast<Player*>(loggedUser)->viewProfile(allQuizzes);
 }
 
@@ -120,6 +126,11 @@ void System::viewChallenges() const
 
 void System::viewFinishedChallenges() const
 {
+	if (loggedUser->getUserType() != UserType::Player)
+	{
+		throw std::logic_error("Only players can view challenges!");
+	}
+
 	Player* player = dynamic_cast<Player*>(loggedUser);
 	player->viewFinishedChallenges(allChallenges);
 }
@@ -157,7 +168,11 @@ void System::createQuiz()
 		MyString type, description;
 		unsigned points;
 		std::cin >> type;
-		std::cin >> description;
+		std::cout << "Enter question " << i + 1 << " description: ";
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+		std::string temp;
+		std::getline(std::cin, temp);
+		description = MyString(temp.c_str());
 		if (type == "SC")
 		{
 			MyString ans1, ans2, ans3, ans4;
@@ -568,8 +583,12 @@ bool System::challengeExists(unsigned id) const
 System::~System()
 {
 	saveToBinaryFile();
+
 	for (size_t i = 0; i < allUsers.getSize(); i++)
-		delete allUsers[i];// without for..
+	{
+		delete allUsers[i];
+	}
+	allUsers.clear();
 }
 
 void System::saveMessagesToBinaryFile(std::ofstream& ofs) const
@@ -634,6 +653,19 @@ void System::saveChallengesToBinaryFile(std::ofstream& ofs) const
 	}
 }
 
+void System::addInitialAdmins()
+{
+	User* admin_1 = new Administrator("admin_1", " ", "@admin_1", "0001");
+	User* admin_2 = new Administrator("admin_2", " ", "@admin_2", "0002");
+	User* admin_3 = new Administrator("admin_3", " ", "@admin_3", "0004");
+	User* admin_4 = new Administrator("admin_4", " ", "@admin_4", "0004");
+
+	allUsers.push_back(admin_1);
+	allUsers.push_back(admin_2);
+	allUsers.push_back(admin_3);
+	allUsers.push_back(admin_4);
+}
+
 void System::readMessagesFromBinaryFile(std::ifstream& ifs)
 {
 	allMessages.clear();
@@ -641,9 +673,9 @@ void System::readMessagesFromBinaryFile(std::ifstream& ifs)
 	ifs.read((char*)&size, sizeof(size));
 	for (size_t i = 0; i < size; i++)
 	{
-		Message* m = new Message;
-		m->readFromBinaryFile(ifs);
-		allMessages.push_back(std::move(*m));
+		Message m;
+		m.readFromBinaryFile(ifs);
+		allMessages.push_back(std::move(m));
 	}
 }
 
@@ -654,9 +686,9 @@ void System::readReportsFromBinaryFile(std::ifstream& ifs)
 	ifs.read((char*)&size, sizeof(size));
 	for (size_t i = 0; i < size; i++)
 	{
-		Report* r = new Report;
-		r->readFromBinaryFile(ifs);
-		reports.push_back(std::move(*r));
+		Report r;
+		r.readFromBinaryFile(ifs);
+		reports.push_back(std::move(r));
 	}
 }
 
@@ -668,11 +700,11 @@ void System::readChallengesFromBinaryFile(std::ifstream& ifs)
 	ifs.read((char*)&size, sizeof(size));
 	for (size_t i = 0; i < size; i++)
 	{
-		Challenge* c = new Challenge;
-		c->readFromBinaryFile(ifs);
+		Challenge c;
+		c.readFromBinaryFile(ifs);
 
-		if (!challengeExists(c->getId()))
-			allChallenges.push_back(std::move(*c));
+		if (!challengeExists(c.getId()))
+			allChallenges.push_back(std::move(c));
 	}
 }
 
@@ -681,6 +713,7 @@ void System::readUsersFromBinaryFile(std::ifstream& ifs)
 	allUsers.clear();
 	size_t size;
 	ifs.read((char*)&size, sizeof(size));
+	addInitialAdmins();
 
 	for (size_t i = 0; i < size; i++)
 	{
@@ -722,7 +755,7 @@ void System::readPendingFromBinaryFile(std::ifstream& ifs)
 	{
 		Quiz* q = new Quiz;
 		q->readFromBinaryFile(ifs);
-		pendingQuizzes.push_back(std::move(*q));
+		pendingQuizzes.push_back(*q);
 	}
 }
 
@@ -735,7 +768,7 @@ void System::readQuizzesFromBinaryFile(std::ifstream& ifs)
 	{
 		Quiz* q = new Quiz;
 		q->readFromBinaryFile(ifs);
-		allQuizzes.push_back(std::move(*q));
+		allQuizzes.push_back(*q);
 	}
 }
 
@@ -755,12 +788,15 @@ void System::login(const MyString& username, const MyString& password)
 		loggedUser = allUsers[index];
 	else
 		throw std::invalid_argument("Wrong password!");
+
+	std::cout << "Login successful! " << loggedUser->getUsername() << '\n';
 	
 }
 
 void System::logout()
 {
 	loggedUser = nullptr;
+	std::cout << "Logout successful!" << '\n';
 }
 
 void System::quit()
@@ -770,10 +806,10 @@ void System::quit()
 
 void System::pending() const
 {
-	if (loggedUser->getUserType() != UserType::Admin)
+	/*if (loggedUser->getUserType() != UserType::Admin)
 	{
 		throw std::logic_error("Only administrators can access pending quizzes!");
-	}
+	}*/
 
 	for (size_t i = 0; i < pendingQuizzes.getSize(); i++)
 	{
@@ -863,8 +899,9 @@ void System::ban(const MyString& username)
 		int index = findUserByNickname(username);
 		if (index == -1) throw std::logic_error("User not found!");
 
-		delete allUsers[index];//???? no 
+		std::cout << allUsers[index]->getUsername() << " banned!\n";
 		std::swap(allUsers[index], allUsers[allUsers.getSize() - 1]);
+		delete allUsers[index];
 		allUsers.pop_back();
 	}
 	else
@@ -872,10 +909,4 @@ void System::ban(const MyString& username)
 		throw std::logic_error("Only administrators can ban users!");
 	}
 }
-
-//void System::readChallengesFromBinaryFile()
-//{
-//	setChallenges();
-//	//logic
-//}
 

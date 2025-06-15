@@ -1,11 +1,14 @@
 ﻿#include <iostream>
-#include "SingleChoiceQuestion.h"
-#include "ShortAnswerQuestion.h"
-#include "TrueOrFalseQuestion.h"
-#include "MultipleChoiceQuestion.h"
-#include "MatchingPairsQuestion.h"
-#include "Quiz.h"
+#include <string>
+//#include "SingleChoiceQuestion.h"
+//#include "ShortAnswerQuestion.h"
+//#include "TrueOrFalseQuestion.h"
+//#include "MultipleChoiceQuestion.h"
+//#include "MatchingPairsQuestion.h"
+//#include "Quiz.h"
 #include "System.h"
+#include "CommandFactory.h"
+
 
 int main()
 {
@@ -70,8 +73,58 @@ int main()
 	//q1.displayQuiz();
 	////q1.play();
 	////q1.saveToFile(offs);
+	//s.createQuiz();
+
+
+
+	//try {
+	//	LoginCommand login("@admin_1", "0001");
+	//	login.execute();
+	//}
+	//catch (const std::exception& e)
+	//{
+	//	std::cout << e.what();
+	//}
 
 	System& s = System::getInstance();
-	s.createQuiz();
-	s.quizzes();
+	
+	std::cout << "Welcome to Quiz Master!" << std::endl;
+
+	while (true)
+	{
+		try
+		{
+			std::cout << "> ";
+
+			std::string line;
+			std::getline(std::cin, line);
+			MyString commandLine(line.c_str());
+
+			if (commandLine.getSize() == 0)
+			{
+				std::cout << "Thank you for using Quiz Master! " << std::endl;
+				break;
+			}
+
+			Command* cmd = CommandFactory::generateCommand(commandLine);
+
+			if (cmd)
+			{
+				cmd->execute();
+				delete cmd;
+			}
+		}
+		catch (std::invalid_argument& ex) 
+		{
+			std::cout << ex.what() << "\n";
+		}
+		catch (std::logic_error& ex) 
+		{
+			std::cout << ex.what() << "\n";
+		}
+		catch (std::exception& ex)
+		{
+			std::cout << ex.what() << "\n";
+		}
+	}
 }

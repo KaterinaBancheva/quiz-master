@@ -44,12 +44,16 @@ private:
 	void saveReportsToBinaryFile(std::ofstream& ofs) const;
 	void saveChallengesToBinaryFile(std::ofstream& ofs) const;
 
+	void addInitialAdmins();
+
 	void readMessagesFromBinaryFile(std::ifstream& ifs);
 	void readReportsFromBinaryFile(std::ifstream& ifs);
 	void readChallengesFromBinaryFile(std::ifstream& ifs);
 	void readUsersFromBinaryFile(std::ifstream& ifs);
 	void readPendingFromBinaryFile(std::ifstream& ifs);
 	void readQuizzesFromBinaryFile(std::ifstream& ifs);
+
+	void setChallenges();
 public:
 	System(const System& other) = delete;
 	System(System&& other) noexcept = delete;
@@ -64,8 +68,6 @@ public:
 
 	void saveToBinaryFile() const;
 	void readFromBinaryFile(); 
-
-	void setChallenges();
 	
 	//player function
 	void signUp(const MyString& name, const MyString& familyName, const MyString& username, const MyString& password, const MyString& password2);

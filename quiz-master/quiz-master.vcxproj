@@ -129,8 +129,12 @@
   <ItemGroup>
     <ClCompile Include="Administrator.cpp" />
     <ClCompile Include="Challenge.cpp" />
+    <ClCompile Include="CommandFactory.cpp" />
     <ClCompile Include="Helpers.cpp" />
+    <ClCompile Include="LoginCommand.cpp" />
+    <ClCompile Include="LogoutCommand.cpp" />
     <ClCompile Include="Message.cpp" />
+    <ClCompile Include="MessagesCommand.cpp" />
     <ClCompile Include="Pair.cpp" />
     <ClCompile Include="MatchingPairsQuestion.cpp" />
     <ClCompile Include="MultipleChoiceQuestion.cpp" />
@@ -138,20 +142,31 @@
     <ClCompile Include="PersonalChallenge.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Question.cpp" />
+    <ClCompile Include="QuitCommand.cpp" />
     <ClCompile Include="quiz-master.cpp" />
     <ClCompile Include="Quiz.cpp" />
     <ClCompile Include="Report.cpp" />
     <ClCompile Include="ShortAnswerQuestion.cpp" />
+    <ClCompile Include="SignUpCommand.cpp" />
     <ClCompile Include="SingleChoiceQuestion.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="TrueOrFalseQuestion.cpp" />
     <ClCompile Include="User.cpp" />
+    <ClCompile Include="ViewChallengesCommand.cpp" />
+    <ClCompile Include="ViewCommand.cpp" />
+    <ClCompile Include="ViewFinishedChallengesCommand.cpp" />
+    <ClCompile Include="ViewProfileCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Administrator.h" />
     <ClInclude Include="Challenge.h" />
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="CommandFactory.h" />
     <ClInclude Include="Helpers.h" />
+    <ClInclude Include="LoginCommand.h" />
+    <ClInclude Include="LogoutCommand.h" />
     <ClInclude Include="Message.h" />
+    <ClInclude Include="MessagesCommand.h" />
     <ClInclude Include="Pair.h" />
     <ClInclude Include="MatchingPairsQuestion.h" />
     <ClInclude Include="MultipleChoiceQuestion.h" />
@@ -160,14 +175,20 @@
     <ClInclude Include="PersonalChallenge.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Question.h" />
+    <ClInclude Include="QuitCommand.h" />
     <ClInclude Include="Quiz.h" />
     <ClInclude Include="Report.h" />
     <ClInclude Include="ShortAnswerQuestion.h" />
+    <ClInclude Include="SignUpCommand.h" />
     <ClInclude Include="SingleChoiceQuestion.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="TrueOrFalseQuestion.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserType.h" />
+    <ClInclude Include="ViewChallengesCommand.h" />
+    <ClInclude Include="ViewCommand.h" />
+    <ClInclude Include="ViewFinishedChallengesCommand.h" />
+    <ClInclude Include="ViewProfileCommand.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
