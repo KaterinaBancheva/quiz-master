@@ -117,6 +117,57 @@
     <ClCompile Include="MessagesCommand.cpp">
       <Filter>Header Files\Commands</Filter>
     </ClCompile>
+    <ClCompile Include="CreateQuizCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="LikeQuizCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="QuizzesCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="UnlikeQuizCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="AddToFavsCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="RemoveFromFavsCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="StartQuizNormalCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="StartQuizTestCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveQuizCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportQuizCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="PendingCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="ApproveQuizCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="RejectQuizCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BanCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RemoveQuizCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewReportsCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HelpCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System.h">
@@ -212,5 +263,64 @@
     <ClInclude Include="MessagesCommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
+    <ClInclude Include="CreateQuizCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="LikeQuizCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="QuizzesCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="UnlikeQuizCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="StartQuizTestCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="AddToFavsCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="RemoveFromFavsCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="StartQuizNormalCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportQuizCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="ApproveQuizCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="PendingCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveQuizCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="RejectQuizCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BanCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RemoveQuizCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewReportsCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HelpCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="quiz-master.rc">
+      <Filter>Header Files\Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

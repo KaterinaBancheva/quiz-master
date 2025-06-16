@@ -127,10 +127,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AddToFavsCommand.cpp" />
     <ClCompile Include="Administrator.cpp" />
+    <ClCompile Include="ApproveQuizCommand.cpp" />
+    <ClCompile Include="BanCommand.cpp" />
     <ClCompile Include="Challenge.cpp" />
     <ClCompile Include="CommandFactory.cpp" />
+    <ClCompile Include="CreateQuizCommand.cpp" />
+    <ClCompile Include="HelpCommand.cpp" />
     <ClCompile Include="Helpers.cpp" />
+    <ClCompile Include="LikeQuizCommand.cpp" />
     <ClCompile Include="LoginCommand.cpp" />
     <ClCompile Include="LogoutCommand.cpp" />
     <ClCompile Include="Message.cpp" />
@@ -139,30 +145,47 @@
     <ClCompile Include="MatchingPairsQuestion.cpp" />
     <ClCompile Include="MultipleChoiceQuestion.cpp" />
     <ClCompile Include="MyString.cpp" />
+    <ClCompile Include="PendingCommand.cpp" />
     <ClCompile Include="PersonalChallenge.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Question.cpp" />
     <ClCompile Include="QuitCommand.cpp" />
     <ClCompile Include="quiz-master.cpp" />
     <ClCompile Include="Quiz.cpp" />
+    <ClCompile Include="QuizzesCommand.cpp" />
+    <ClCompile Include="RejectQuizCommand.cpp" />
+    <ClCompile Include="RemoveFromFavsCommand.cpp" />
+    <ClCompile Include="RemoveQuizCommand.cpp" />
     <ClCompile Include="Report.cpp" />
+    <ClCompile Include="ReportQuizCommand.cpp" />
+    <ClCompile Include="SaveQuizCommand.cpp" />
     <ClCompile Include="ShortAnswerQuestion.cpp" />
     <ClCompile Include="SignUpCommand.cpp" />
     <ClCompile Include="SingleChoiceQuestion.cpp" />
+    <ClCompile Include="StartQuizNormalCommand.cpp" />
+    <ClCompile Include="StartQuizTestCommand.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="TrueOrFalseQuestion.cpp" />
+    <ClCompile Include="UnlikeQuizCommand.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="ViewChallengesCommand.cpp" />
     <ClCompile Include="ViewCommand.cpp" />
     <ClCompile Include="ViewFinishedChallengesCommand.cpp" />
     <ClCompile Include="ViewProfileCommand.cpp" />
+    <ClCompile Include="ViewReportsCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddToFavsCommand.h" />
     <ClInclude Include="Administrator.h" />
+    <ClInclude Include="ApproveQuizCommand.h" />
+    <ClInclude Include="BanCommand.h" />
     <ClInclude Include="Challenge.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandFactory.h" />
+    <ClInclude Include="CreateQuizCommand.h" />
+    <ClInclude Include="HelpCommand.h" />
     <ClInclude Include="Helpers.h" />
+    <ClInclude Include="LikeQuizCommand.h" />
     <ClInclude Include="LoginCommand.h" />
     <ClInclude Include="LogoutCommand.h" />
     <ClInclude Include="Message.h" />
@@ -172,23 +195,38 @@
     <ClInclude Include="MultipleChoiceQuestion.h" />
     <ClInclude Include="MyString.h" />
     <ClInclude Include="MyVector.hpp" />
+    <ClInclude Include="PendingCommand.h" />
     <ClInclude Include="PersonalChallenge.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Question.h" />
     <ClInclude Include="QuitCommand.h" />
     <ClInclude Include="Quiz.h" />
+    <ClInclude Include="QuizzesCommand.h" />
+    <ClInclude Include="RejectQuizCommand.h" />
+    <ClInclude Include="RemoveFromFavsCommand.h" />
+    <ClInclude Include="RemoveQuizCommand.h" />
     <ClInclude Include="Report.h" />
+    <ClInclude Include="ReportQuizCommand.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="SaveQuizCommand.h" />
     <ClInclude Include="ShortAnswerQuestion.h" />
     <ClInclude Include="SignUpCommand.h" />
     <ClInclude Include="SingleChoiceQuestion.h" />
+    <ClInclude Include="StartQuizNormalCommand.h" />
+    <ClInclude Include="StartQuizTestCommand.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="TrueOrFalseQuestion.h" />
+    <ClInclude Include="UnlikeQuizCommand.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserType.h" />
     <ClInclude Include="ViewChallengesCommand.h" />
     <ClInclude Include="ViewCommand.h" />
     <ClInclude Include="ViewFinishedChallengesCommand.h" />
     <ClInclude Include="ViewProfileCommand.h" />
+    <ClInclude Include="ViewReportsCommand.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="quiz-master.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

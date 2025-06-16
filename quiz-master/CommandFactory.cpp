@@ -28,7 +28,7 @@ Command* CommandFactory::generateCommand(const MyString& fullLine)
     }
     else if (cmd == "help")
     {
-       // return new HelpCommand();
+       return new HelpCommand();
     }
     else if (cmd == "sign_up")
     {
@@ -64,63 +64,108 @@ Command* CommandFactory::generateCommand(const MyString& fullLine)
     }
     else if (cmd == "quizzes")
     {
-        //two overloads
+        MyString username;
+        iss >> username;
+        if (username.getSize() == 0)
+        {
+            return new QuizzesCommand();
+        }
+        else
+        {
+            return new QuizzesCommand(username);
+        }
     }
     else if (cmd == "like_quiz")
     {
-
+        unsigned id;
+        std::cin >> id;
+        return new LikeQuizCommand(id);
     }
     else if (cmd == "unlike_quiz")
     {
-
+        unsigned id;
+        std::cin >> id;
+        return new UnlikeQuizCommand(id);
     }
     else if (cmd == "add_to_favs")
     {
-
+        unsigned id;
+        std::cin >> id;
+        return new AddToFavsCommand(id);
     }
     else if (cmd == "remove_from_favs")
     {
-
+        unsigned id;
+        std::cin >> id;
+        return new RemoveFromFavsCommand(id);
     }
     else if (cmd == "startQuiz_normal")
     {
-
+        unsigned id;
+        std::cin >> id;
+        bool shuffle;
+        std::cin >> shuffle;
+        return new StartQuizNormalCommand(id, shuffle);
     }
     else if (cmd == "startQuiz_test")
     {
-
+        unsigned id;
+        std::cin >> id;
+        bool shuffle;
+        std::cin >> shuffle;
+        return new StartQuizTestCommand(id, shuffle);
     }
     else if (cmd == "save_quiz")
     {
-
+        unsigned id;
+        std::cin >> id;
+        MyString str;
+        std::cin >> str;
+        return new SaveQuizCommand(id, str);
     }
     else if (cmd == "report_quiz")
     {
-
+        unsigned id;
+        std::cin >> id;
+        MyString str;
+        std::cin >> str;
+        return new ReportQuizCommand(id, str);
     }
     else if (cmd == "pending")
     {
-
+        return new PendingCommand();
     }
     else if (cmd == "approve_quiz")
     {
-
+        unsigned id;
+        std::cin >> id;
+        return new ApproveQuizCommand(id);
     }
     else if (cmd == "reject_quiz")
     {
-
+        unsigned id;
+        std::cin >> id;
+        MyString str;
+        std::cin >> str;
+        return new RejectQuizCommand(id, str);
     }
-    else if (cmd == "view_repports")
+    else if (cmd == "view_reports")
     {
-
+        return new ViewReportsCommand();
     }
     else if (cmd == "remove_quiz")
     {
-
+        unsigned id;
+        std::cin >> id;
+        MyString str;
+        std::cin >> str;
+        return new RemoveQuizCommand(id, str);
     }
     else if (cmd == "ban")
     {
-
+        MyString str;
+        std::cin >> str;
+        return new BanCommand(str);
     }
     else 
     {

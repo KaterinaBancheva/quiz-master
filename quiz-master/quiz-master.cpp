@@ -111,6 +111,13 @@ int main()
 			if (cmd)
 			{
 				cmd->execute();
+
+				if (commandLine == "quit")
+				{
+					std::cout << "Thank you for using Quiz Master! " << std::endl;
+					break;
+				}
+
 				delete cmd;
 			}
 		}

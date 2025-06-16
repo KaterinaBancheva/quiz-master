@@ -44,6 +44,7 @@ private:
 	void saveReportsToBinaryFile(std::ofstream& ofs) const;
 	void saveChallengesToBinaryFile(std::ofstream& ofs) const;
 
+	void setChallenges();
 	void addInitialAdmins();
 
 	void readMessagesFromBinaryFile(std::ifstream& ifs);
@@ -53,7 +54,8 @@ private:
 	void readPendingFromBinaryFile(std::ifstream& ifs);
 	void readQuizzesFromBinaryFile(std::ifstream& ifs);
 
-	void setChallenges();
+	void helpPlayer() const;
+	void helpAdmin() const;
 public:
 	System(const System& other) = delete;
 	System(System&& other) noexcept = delete;
@@ -63,7 +65,7 @@ public:
 
 	void login(const MyString& username, const MyString& password);
 	void logout();
-	//void help();
+	void help() const;
 	void quit();
 
 	void saveToBinaryFile() const;

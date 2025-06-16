@@ -145,10 +145,10 @@ void System::messages() const
 
 void System::createQuiz()
 {
-	/*if (loggedUser->getUserType() != UserType::Player)
+	if (loggedUser->getUserType() != UserType::Player)
 	{
 		throw std::logic_error("Only players can create quizzes!");
-	}*/
+	}
 	
 	MyString title;
 	std::cout << "Enter quiz title: ";
@@ -772,6 +772,36 @@ void System::readQuizzesFromBinaryFile(std::ifstream& ifs)
 	}
 }
 
+void System::helpPlayer() const
+{
+	std::cout << "signup <first-name> <last-name> <username> <password1> <password2>" << std::endl;
+	std::cout << "view-profile" << std::endl;
+	std::cout << "view-challenges" << std::endl;
+	std::cout << "view-finished-challenges" << std::endl;
+	std::cout << "view <username>" << std::endl;
+	std::cout << "messages" << std::endl;
+	std::cout << "create-quiz" << std::endl;
+	std::cout << "quizzes" << std::endl;
+	std::cout << "quizzes <username>" << std::endl;
+	std::cout << "like-quiz <quiz-id>" << std::endl;
+	std::cout << "unlike-quiz <quiz-id>" << std::endl;
+	std::cout << "add-to-favs <quiz-id>" << std::endl;
+	std::cout << "remove-from-favs <quiz-id>" << std::endl;
+	std::cout << "start-quiz <quiz-id> test|normal (shuffle)" << std::endl;
+	std::cout << "save-quiz <quiz-id> <filepath>" << std::endl;
+	std::cout << "report-quiz <quiz-id> <reason>" << std::endl;
+}
+
+void System::helpAdmin() const
+{
+	std::cout << "pending" << std::endl;
+	std::cout << "approve-quiz <quiz-id>" << std::endl;
+	std::cout << "reject-quiz <quiz-id> <reason>" << std::endl;
+	std::cout << "view-reports" << std::endl;
+	std::cout << "remove-quiz <quiz-id> <reason>" << std::endl;
+	std::cout << "ban <username>" << std::endl;
+}
+
 System& System::getInstance()
 {
 	static System instance;
@@ -799,6 +829,26 @@ void System::logout()
 	std::cout << "Logout successful!" << '\n';
 }
 
+void System::help() const
+{
+	std::cout << std::endl;
+	std::cout << "Available commands: " << std::endl;
+	std::cout << "login  <username> <password>" << std::endl;
+	std::cout << "logout" << std::endl;
+	std::cout << "help" << std::endl;
+	std::cout << "quit" << std::endl;
+
+	if (loggedUser->getUserType() == UserType::Player)
+	{
+		helpPlayer();
+	}
+	else if (loggedUser->getUserType() == UserType::Admin)
+	{
+		helpAdmin();
+	}
+	
+}
+
 void System::quit()
 {
 	saveToBinaryFile();
@@ -806,10 +856,10 @@ void System::quit()
 
 void System::pending() const
 {
-	/*if (loggedUser->getUserType() != UserType::Admin)
+	if (loggedUser->getUserType() != UserType::Admin)
 	{
 		throw std::logic_error("Only administrators can access pending quizzes!");
-	}*/
+	}
 
 	for (size_t i = 0; i < pendingQuizzes.getSize(); i++)
 	{
