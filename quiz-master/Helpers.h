@@ -14,5 +14,7 @@ namespace Helpers
 	MyVector<unsigned> shuffleArray(size_t size);
 
 	int contains(unsigned id, MyVector<unsigned> vector);
+
+	//void toLower(MyString& boolStr);
 };
 

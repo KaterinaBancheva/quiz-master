@@ -32,9 +32,14 @@ private:
 	int collectedPoints;
 	bool shuffleOn; 
 	bool liked;
+
+	void free();
+	void copyFrom(const Quiz& other);
 public:
 	Quiz() = default;
-	Quiz(const MyString& title);
+	Quiz(const MyString& title, const MyString& createrUsername);
+	Quiz(const Quiz& other);
+	Quiz& operator=(const Quiz& other);
 	~Quiz();
 
 	unsigned getId() const;
@@ -47,6 +52,7 @@ public:
 	int getCollectedPoints() const;
 
 	void setWorkMode(const WorkMode mode);
+	void setNames(const MyString& name, const MyString& family);
 
 	void addQuestion(Question* question);
 

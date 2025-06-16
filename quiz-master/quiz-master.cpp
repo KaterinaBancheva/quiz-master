@@ -100,12 +100,6 @@ int main()
 			std::getline(std::cin, line);
 			MyString commandLine(line.c_str());
 
-			if (commandLine.getSize() == 0)
-			{
-				std::cout << "Thank you for using Quiz Master! " << std::endl;
-				break;
-			}
-
 			Command* cmd = CommandFactory::generateCommand(commandLine);
 
 			if (cmd)

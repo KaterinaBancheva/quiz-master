@@ -4,8 +4,8 @@
 
 System::System()
 {
-	addInitialAdmins();
-	//readFromBinaryFile();
+	//addInitialAdmins();
+	readFromBinaryFile();
 }
 
 void System::saveToBinaryFile() const
@@ -145,34 +145,45 @@ void System::messages() const
 
 void System::createQuiz()
 {
-	if (loggedUser->getUserType() != UserType::Player)
+	if (!loggedUser || loggedUser->getUserType() != UserType::Player)
 	{
 		throw std::logic_error("Only players can create quizzes!");
 	}
-	
+
 	MyString title;
 	std::cout << "Enter quiz title: ";
 	std::cin >> title;
-	Quiz quiz(title);
+	Quiz quiz(title, loggedUser->getUsername());
+	quiz.setNames(loggedUser->getName(), loggedUser->getFamilyName());
+	/*Quiz* quiz = new Quiz(title, loggedUser->getUsername());
+	quiz->setNames(loggedUser->getName(), loggedUser->getFamilyName());*/
 
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 	unsigned num;
 	std::cout << "Enter number of questions: ";
+	if (!(std::cin >> num) || num == 0) 
+	{
+		throw std::invalid_argument("Invalid number of questions.");
+	}
+	//std::cin >> num;
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-	std::cin >> num;
 
 	for (size_t i = 0; i < num; i++)
 	{
-		std::cout << "Enter question " << i + 1 << " type: ";
+		std::cout << "Enter question " << i + 1 << " type (SC, ShA, MC, MP, T/F) : ";
 		MyString type, description;
 		unsigned points;
 		std::cin >> type;
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 		std::cout << "Enter question " << i + 1 << " description: ";
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+		//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::string temp;
 		std::getline(std::cin, temp);
 		description = MyString(temp.c_str());
+
 		if (type == "SC")
 		{
 			MyString ans1, ans2, ans3, ans4;
@@ -189,6 +200,7 @@ void System::createQuiz()
 			std::cin >> right;
 			std::cout << "Enter points: ";
 			std::cin >> points;
+			//auto* question = new SingleChoiceQuestion(description, points, ans1, ans2, ans3, ans4, right);
 			SingleChoiceQuestion* question = new SingleChoiceQuestion(description, points, ans1, ans2, ans3, ans4, right);
 			quiz.addQuestion(question);
 		}
@@ -209,7 +221,7 @@ void System::createQuiz()
 			std::cin >> cnt;
 			MyVector<MyString> options;
 			MyVector<char> answers;
-			
+
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 			for (size_t i = 0; i < cnt; i++)
@@ -306,7 +318,7 @@ void System::createQuiz()
 				answers.push_back(p);
 			}
 
-			
+
 			std::cout << "Enter points: ";
 			std::cin >> points;
 			MatchingPairsQuestion* question = new MatchingPairsQuestion(description, points, left, right, answers);
@@ -324,10 +336,18 @@ void System::createQuiz()
 		}
 		else
 		{
+			/*std::cout << "Invalid question type!\n";
+			--i;
+			continue;*/
 			throw std::invalid_argument("Invalid type!");
 		}
 	}
+
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 	pendingQuizzes.push_back(quiz);
+	std::cout << "\nQuiz \"" << title << "\" created successfully with " << num << " questions.\n";
+
 }
 
 void System::quizzes() const
@@ -420,7 +440,7 @@ void System::startQuiz_normal(unsigned quizId, bool shuffle)
 	if (loggedUser->getUserType() == UserType::Player)
 	{
 		int index = findQuizById(quizId);
-		if(index != -1)
+		if (index != -1)
 		{
 			if (shuffle)
 				allQuizzes[index].shuffle();
@@ -496,7 +516,7 @@ void System::saveQuiz(unsigned quizId, const MyString& filepath)
 	}
 
 	int index = findQuizById(quizId);
-	if(index != -1)
+	if (index != -1)
 	{
 		allQuizzes[index].saveToFile(ofs);
 	}
@@ -510,7 +530,7 @@ void System::saveQuiz(unsigned quizId, const MyString& filepath)
 
 void System::reportQuiz(unsigned quizId, const MyString& reason)
 {
-	if(loggedUser->getUserType() == UserType::Player)
+	if (loggedUser->getUserType() == UserType::Player)
 	{
 		int index = findQuizById(quizId);
 		if (index == -1) throw std::invalid_argument("Invalid id");
@@ -564,7 +584,7 @@ const Challenge* System::findChallenge(int count, ChallengeType type)
 		if (allChallenges[i].getCount() == count && allChallenges[i].getChallengeType() == type)
 			return &allChallenges[i];
 	}
-	
+
 	Challenge* challenge = new Challenge(type, count);
 	allChallenges.push_back(*challenge);
 	return challenge;
@@ -618,7 +638,7 @@ void System::saveUsersToBinaryFile(std::ofstream& ofs) const
 	for (size_t i = 0; i < size; i++)
 	{
 		UserType type = allUsers[i]->getUserType();
-		ofs.write((const char*)&type, sizeof(type)); 
+		ofs.write((const char*)&type, sizeof(type));
 		allUsers[i]->saveToBinaryFile(ofs);
 	}
 }
@@ -713,12 +733,12 @@ void System::readUsersFromBinaryFile(std::ifstream& ifs)
 	allUsers.clear();
 	size_t size;
 	ifs.read((char*)&size, sizeof(size));
-	addInitialAdmins();
+	//addInitialAdmins();
 
 	for (size_t i = 0; i < size; i++)
 	{
 		UserType type;
-		ifs.read((char*)&type, sizeof(type)); 
+		ifs.read((char*)&type, sizeof(type));
 
 		User* u = nullptr;
 
@@ -728,18 +748,6 @@ void System::readUsersFromBinaryFile(std::ifstream& ifs)
 			u = new Administrator();
 		else
 			throw std::runtime_error("Unknown user type.");
-
-		/*switch (type)
-		{
-		case UserType::Player:
-			u = new Player(); 
-			break;
-		case UserType::Admin:
-			u = new Administrator();
-			break;
-		default:
-			throw std::logic_error("Unknown user type while reading from file");
-		}*/
 
 		u->readFromBinaryFile(ifs);
 		allUsers.push_back(u);
@@ -774,7 +782,6 @@ void System::readQuizzesFromBinaryFile(std::ifstream& ifs)
 
 void System::helpPlayer() const
 {
-	std::cout << "signup <first-name> <last-name> <username> <password1> <password2>" << std::endl;
 	std::cout << "view-profile" << std::endl;
 	std::cout << "view-challenges" << std::endl;
 	std::cout << "view-finished-challenges" << std::endl;
@@ -790,6 +797,7 @@ void System::helpPlayer() const
 	std::cout << "start-quiz <quiz-id> test|normal (shuffle)" << std::endl;
 	std::cout << "save-quiz <quiz-id> <filepath>" << std::endl;
 	std::cout << "report-quiz <quiz-id> <reason>" << std::endl;
+	std::cout << "logout" << std::endl;
 }
 
 void System::helpAdmin() const
@@ -800,6 +808,7 @@ void System::helpAdmin() const
 	std::cout << "view-reports" << std::endl;
 	std::cout << "remove-quiz <quiz-id> <reason>" << std::endl;
 	std::cout << "ban <username>" << std::endl;
+	std::cout << "logout" << std::endl;
 }
 
 System& System::getInstance()
@@ -820,7 +829,7 @@ void System::login(const MyString& username, const MyString& password)
 		throw std::invalid_argument("Wrong password!");
 
 	std::cout << "Login successful! " << loggedUser->getUsername() << '\n';
-	
+
 }
 
 void System::logout()
@@ -834,9 +843,15 @@ void System::help() const
 	std::cout << std::endl;
 	std::cout << "Available commands: " << std::endl;
 	std::cout << "login  <username> <password>" << std::endl;
-	std::cout << "logout" << std::endl;
+	std::cout << "signup <first-name> <last-name> <username> <password1> <password2>" << std::endl;
 	std::cout << "help" << std::endl;
 	std::cout << "quit" << std::endl;
+
+	if (loggedUser == nullptr)
+	{
+		std::cout << "\n(Log in to see more commands based on your role.)\n";
+		return;
+	}
 
 	if (loggedUser->getUserType() == UserType::Player)
 	{
@@ -846,7 +861,7 @@ void System::help() const
 	{
 		helpAdmin();
 	}
-	
+
 }
 
 void System::quit()
@@ -880,7 +895,7 @@ void System::approveQuiz(unsigned quizId)
 		int idx = findUserByNickname(username);
 		Player* player = dynamic_cast<Player*>(allUsers[idx]);
 		//Player* player = dynamic_cast<Player*>(loggedUser);
-		if(player)
+		if (player)
 		{
 			player->createQuiz(quizId);
 			int count = player->getCreatedQuizzes();
@@ -940,12 +955,12 @@ void System::removeQuiz(unsigned quizId, MyString& reason)
 	}
 }
 
-void System::ban(const MyString& username) 
+void System::ban(const MyString& username)
 {
 	if (loggedUser->getUserType() == UserType::Admin)
 	{
 		if (username == loggedUser->getUsername()) throw std::logic_error("You cannot ban yourself.");
-	
+
 		int index = findUserByNickname(username);
 		if (index == -1) throw std::logic_error("User not found!");
 
@@ -959,4 +974,3 @@ void System::ban(const MyString& username)
 		throw std::logic_error("Only administrators can ban users!");
 	}
 }
-

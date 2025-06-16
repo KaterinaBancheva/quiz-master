@@ -78,58 +78,98 @@ Command* CommandFactory::generateCommand(const MyString& fullLine)
     else if (cmd == "like_quiz")
     {
         unsigned id;
-        std::cin >> id;
+        if (!(iss >> id))
+        {
+            throw std::invalid_argument("Usage: like_quiz <id>");
+        }
         return new LikeQuizCommand(id);
     }
     else if (cmd == "unlike_quiz")
     {
         unsigned id;
-        std::cin >> id;
+        if (!(iss >> id))
+        {
+            throw std::invalid_argument("Usage: unlike_quiz <id>");
+        }
         return new UnlikeQuizCommand(id);
     }
     else if (cmd == "add_to_favs")
     {
         unsigned id;
-        std::cin >> id;
+        if (!(iss >> id))
+        {
+            throw std::invalid_argument("Usage: add_to_favs <id>");
+        }
         return new AddToFavsCommand(id);
     }
     else if (cmd == "remove_from_favs")
     {
         unsigned id;
-        std::cin >> id;
+        if (!(iss >> id))
+        {
+            throw std::invalid_argument("Usage: remove_from_favs <id>");
+        }
         return new RemoveFromFavsCommand(id);
     }
     else if (cmd == "startQuiz_normal")
     {
         unsigned id;
-        std::cin >> id;
+        if (!(iss >> id))
+        {
+            throw std::invalid_argument("Usage: startQuiz_normal <id> <shuffle on/off>");
+        }
+        MyString shuffleStr;
         bool shuffle;
-        std::cin >> shuffle;
+        if (!(iss >> shuffleStr))
+        {
+            if (shuffleStr == "shuffle on") shuffle = true;
+            if (shuffleStr == "shuffle off") shuffle = false;
+        }
         return new StartQuizNormalCommand(id, shuffle);
     }
     else if (cmd == "startQuiz_test")
     {
         unsigned id;
-        std::cin >> id;
+        if (!(iss >> id))
+        {
+            throw std::invalid_argument("Usage: startQuiz_test <id> <shuffle on/off>");
+        }
+        MyString shuffleStr;
         bool shuffle;
-        std::cin >> shuffle;
+        if (!(iss >> shuffleStr))
+        {
+            if (shuffleStr == "shuffle on") shuffle = true;
+            if (shuffleStr == "shuffle off") shuffle = false;
+        }
         return new StartQuizTestCommand(id, shuffle);
     }
     else if (cmd == "save_quiz")
     {
         unsigned id;
-        std::cin >> id;
+        if (!(iss >> id))
+        {
+            throw std::invalid_argument("Usage: save_quiz <id> <filepath>");
+        }
         MyString str;
-        std::cin >> str;
+        if (!(iss >> id))
+        {
+            throw std::invalid_argument("Usage: save_quiz <id> <filepath>");
+
+        }
         return new SaveQuizCommand(id, str);
     }
     else if (cmd == "report_quiz")
     {
         unsigned id;
-        std::cin >> id;
-        MyString str;
-        std::cin >> str;
-        return new ReportQuizCommand(id, str);
+        if (!(iss >> id))
+        {
+            throw std::invalid_argument("Usage: report_quiz <id> <reason>");
+        }
+        std::string str;
+        std::getline(iss, str);
+        if (!str.empty() && str[0] == ' ')
+            str.erase(0, 1);
+        return new ReportQuizCommand(id, str.c_str());
     }
     else if (cmd == "pending")
     {
@@ -138,16 +178,24 @@ Command* CommandFactory::generateCommand(const MyString& fullLine)
     else if (cmd == "approve_quiz")
     {
         unsigned id;
-        std::cin >> id;
+        if (!(iss >> id))
+        {
+            throw std::invalid_argument("Usage: approve_quiz <id>");
+        }
         return new ApproveQuizCommand(id);
     }
     else if (cmd == "reject_quiz")
     {
         unsigned id;
-        std::cin >> id;
-        MyString str;
-        std::cin >> str;
-        return new RejectQuizCommand(id, str);
+        if (!(iss >> id))
+        {
+            throw std::invalid_argument("Usage: reject_quiz <id> <reason>");
+        }
+        std::string str;
+        std::getline(iss, str);
+        if (!str.empty() && str[0] == ' ')
+            str.erase(0, 1);
+        return new RejectQuizCommand(id, str.c_str());
     }
     else if (cmd == "view_reports")
     {
@@ -156,15 +204,20 @@ Command* CommandFactory::generateCommand(const MyString& fullLine)
     else if (cmd == "remove_quiz")
     {
         unsigned id;
-        std::cin >> id;
-        MyString str;
-        std::cin >> str;
-        return new RemoveQuizCommand(id, str);
+        if (!(iss >> id))
+        {
+            throw std::invalid_argument("Usage: remove_quiz <id> <reason>");
+        }
+        std::string str;
+        std::getline(iss, str);
+        if (!str.empty() && str[0] == ' ')
+            str.erase(0, 1);
+        return new RemoveQuizCommand(id, str.c_str());
     }
     else if (cmd == "ban")
     {
         MyString str;
-        std::cin >> str;
+        iss >> str;
         return new BanCommand(str);
     }
     else 

@@ -87,6 +87,15 @@ int Helpers::contains(unsigned id, MyVector<unsigned> vector)
 	return -1;
 }
 
+//void Helpers::toLower(MyString& boolStr)
+//{
+//	for (size_t i = 0; i < boolStr.getSize(); i++)
+//	{
+//		if (boolStr[i] <= 'Z' && boolStr[i] >= 'A')
+//			boolStr[i] = boolStr[i] - 'A' + 'a';
+//	}
+//}
+
 MyString Helpers::normalize(const MyString& str)
 {
 	MyString toReturn = str;

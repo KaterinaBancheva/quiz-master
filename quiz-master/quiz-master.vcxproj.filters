@@ -153,20 +153,20 @@
     <ClCompile Include="ApproveQuizCommand.cpp">
       <Filter>Header Files\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="RejectQuizCommand.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="HelpCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
     </ClCompile>
     <ClCompile Include="BanCommand.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="RejectQuizCommand.cpp">
+      <Filter>Header Files\Commands</Filter>
     </ClCompile>
     <ClCompile Include="RemoveQuizCommand.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files\Commands</Filter>
     </ClCompile>
     <ClCompile Include="ViewReportsCommand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HelpCommand.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files\Commands</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -299,23 +299,23 @@
     <ClInclude Include="SaveQuizCommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="RejectQuizCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BanCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RemoveQuizCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ViewReportsCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ViewReportsCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="RemoveQuizCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="BanCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
     <ClInclude Include="HelpCommand.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="RejectQuizCommand.h">
+      <Filter>Header Files\Commands</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,15 +3,59 @@
 #include <cstdlib>
 #include <ctime>
 
-Quiz::Quiz(const MyString& title)
+void Quiz::free()
+{
+	for (size_t i = 0; i < questions.getSize(); ++i)
+		delete questions[i];
+
+	questions.clear();
+}
+
+void Quiz::copyFrom(const Quiz& other)
+{
+	for (size_t i = 0; i < other.questions.getSize(); ++i)
+	{
+		questions.push_back(other.questions[i]->clone());
+	}
+	id = other.id;
+	title = other.title;
+	questionsCount = other.questionsCount;
+	createrNames = other.createrNames;
+	createrUsername = other.createrUsername;
+	mode = other.mode;
+	playsCount = other.playsCount;
+	likesCount = other.likesCount;
+	collectedPoints = other.collectedPoints;
+	shuffleOn = other.shuffleOn;
+	liked = other.liked;
+}
+
+Quiz::Quiz(const MyString& title, const MyString& createrUsername)
 {
 	this->title = title;
+	this->createrUsername = createrUsername;
+}
+
+Quiz::Quiz(const Quiz& other)
+{
+	copyFrom(other);
+}
+
+Quiz& Quiz::operator=(const Quiz& other)
+{
+	if (this != &other)
+	{
+		free();
+		copyFrom(other);
+		liked = other.liked;
+		
+	}
+	return *this;
 }
 
 Quiz::~Quiz()
 {
-	for (size_t i = 0; i < questions.getSize(); ++i)
-		delete questions[i];
+	free();
 }
 
 unsigned Quiz::getId() const
@@ -57,6 +101,13 @@ int Quiz::getCollectedPoints() const
 void Quiz::setWorkMode(const WorkMode mode)
 {
 	this->mode = mode;
+}
+
+void Quiz::setNames(const MyString& name, const MyString& family)
+{
+	createrNames = name;
+	createrNames += " ";
+	createrNames += family;
 }
 
 void Quiz::addQuestion(Question* question)
@@ -203,6 +254,11 @@ void Quiz::saveToBinaryFile(std::ofstream& ofs) const
 	ofs.write((const char*)&questionsCount, sizeof(questionsCount));
 	for (size_t i = 0; i < questionsCount; i++)
 	{
+		if (!questions[i]) {
+			std::cerr << "questions[" << i << "] is null!\n";
+			throw std::logic_error("exception..");
+		}
+
 		QuestionType type = questions[i]->getType();
 		ofs.write((const char*)&type, sizeof(type));
 		questions[i]->saveToBinaryFile(ofs);
@@ -226,7 +282,7 @@ void Quiz::displayQuiz() const
 
 void Quiz::displayPendingQuiz() const
 {
-	std::cout << "[ id " << id << " ] " << title << "By: " << createrUsername << "\n";
+	std::cout << "[ id " << id << " ] " << title << " By: " << createrUsername << "\n";
 }
 
 
