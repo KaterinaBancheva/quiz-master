@@ -150,10 +150,10 @@ void System::createQuiz()
 		throw std::logic_error("Only players can create quizzes!");
 	}
 
-	MyString title;
+	std::string title;
 	std::cout << "Enter quiz title: ";
-	std::cin >> title;
-	Quiz quiz(title, loggedUser->getUsername());
+	std::getline(std::cin, title);
+	Quiz quiz(title.c_str(), loggedUser->getUsername());
 	quiz.setNames(loggedUser->getName(), loggedUser->getFamilyName());
 	/*Quiz* quiz = new Quiz(title, loggedUser->getUsername());
 	quiz->setNames(loggedUser->getName(), loggedUser->getFamilyName());*/
@@ -179,39 +179,38 @@ void System::createQuiz()
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		std::cout << "Enter question " << i + 1 << " description: ";
-		//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	
 		std::string temp;
 		std::getline(std::cin, temp);
 		description = MyString(temp.c_str());
 
 		if (type == "SC")
 		{
-			MyString ans1, ans2, ans3, ans4;
+			std::string ans1, ans2, ans3, ans4;
 			char right;
 			std::cout << "Enter answer A. ";
-			std::cin >> ans1;
+			std::getline(std::cin, ans1);
 			std::cout << "Enter answer B. ";
-			std::cin >> ans2;
+			std::getline(std::cin, ans2);
 			std::cout << "Enter answer C. ";
-			std::cin >> ans3;
+			std::getline(std::cin, ans3);
 			std::cout << "Enter answer D. ";
-			std::cin >> ans4;
+			std::getline(std::cin, ans4);
 			std::cout << "Enter correct answer (A, B, C, D): ";
 			std::cin >> right;
 			std::cout << "Enter points: ";
 			std::cin >> points;
-			//auto* question = new SingleChoiceQuestion(description, points, ans1, ans2, ans3, ans4, right);
-			SingleChoiceQuestion* question = new SingleChoiceQuestion(description, points, ans1, ans2, ans3, ans4, right);
+			SingleChoiceQuestion* question = new SingleChoiceQuestion(description, points, ans1.c_str(), ans2.c_str(), ans3.c_str(), ans4.c_str(), right);
 			quiz.addQuestion(question);
 		}
 		else if (type == "ShA")
 		{
-			MyString ans;
+			std::string ans;
 			std::cout << "Enter correct answer: ";
-			std::cin >> ans;
+			std::getline(std::cin, ans);
 			std::cout << "Enter points: ";
 			std::cin >> points;
-			ShortAnswerQuestion* question = new ShortAnswerQuestion(description, points, ans);
+			ShortAnswerQuestion* question = new ShortAnswerQuestion(description, points, ans.c_str());
 			quiz.addQuestion(question);
 		}
 		else if (type == "MC")
@@ -227,10 +226,10 @@ void System::createQuiz()
 			for (size_t i = 0; i < cnt; i++)
 			{
 				char letter = 'A' + i;
-				MyString temp;
+				std::string temp;
 				std::cout << "Enter answer " << letter << ": ";
-				std::cin >> temp;
-				options.push_back(std::move(temp));
+				std::getline(std::cin, temp);
+				options.push_back(std::move(temp.c_str()));
 			}
 			std::cout << "Enter correct answers: ";
 			MyString ans;
@@ -260,9 +259,9 @@ void System::createQuiz()
 			{
 				char letter = 'A' + i;
 				std::cout << "Enter value " << letter << ": ";
-				MyString value;
-				std::cin >> value;
-				left.push_back(std::move(value));
+				std::string value;
+				std::getline(std::cin, value);
+				left.push_back(std::move(value.c_str()));
 			}
 
 			std::cout << "Enter right column values count: ";
@@ -271,9 +270,9 @@ void System::createQuiz()
 			{
 				char letter = 'a' + i;
 				std::cout << "Enter value " << letter << ": ";
-				MyString value;
-				std::cin >> value;
-				right.push_back(std::move(value));
+				std::string value;
+				std::getline(std::cin, value);
+				right.push_back(std::move(value.c_str()));
 			}
 
 			std::cout << "Enter correct pairs: ";
