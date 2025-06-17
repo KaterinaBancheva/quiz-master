@@ -2,7 +2,9 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-
+ 
+unsigned Quiz::counter = 2;
+ 
 void Quiz::free()
 {
 	for (size_t i = 0; i < questions.getSize(); ++i)
@@ -30,10 +32,20 @@ void Quiz::copyFrom(const Quiz& other)
 	liked = other.liked;
 }
 
+//Quiz::Quiz()
+//{
+//	title = " ";
+//	createrUsername = " ";
+//	id = counter;
+//	counter++;
+//}
+
 Quiz::Quiz(const MyString& title, const MyString& createrUsername)
 {
 	this->title = title;
 	this->createrUsername = createrUsername;
+	id = counter;
+	counter++;
 }
 
 Quiz::Quiz(const Quiz& other)
@@ -219,6 +231,11 @@ void Quiz::saveToFile(std::ofstream& ofs) const
 	}
 }
 
+void Quiz::saveCurrentQuizIdToBinaryFile(std::ofstream& ofs)
+{
+	ofs.write((const char*)&counter, sizeof(counter));
+}
+
 void Quiz::readFromBinaryFile(std::ifstream& ifs)
 {
 	ifs.read((char*)&id, sizeof(id));
@@ -247,6 +264,11 @@ void Quiz::readFromBinaryFile(std::ifstream& ifs)
 	createrUsername.read(ifs);
 }
 
+void Quiz::readCurrentQuizIdToBinaryFile(std::ifstream& ifs)
+{
+	ifs.read((char*)&counter, sizeof(counter));
+}
+
 void Quiz::saveToBinaryFile(std::ofstream& ofs) const
 {
 	ofs.write((const char*)&id, sizeof(id));
@@ -270,7 +292,7 @@ void Quiz::saveToBinaryFile(std::ofstream& ofs) const
 void Quiz::displayQuiz() const
 {
 	std::cout << title << " - " << questionsCount << " questions \n";
-	std::cout << "By: " << createrNames << createrUsername << "\n";
+	std::cout << "By: " << createrNames << " " << createrUsername << "\n";
 	std::cout << "Likes: " << likesCount << "\n";
 	for (size_t i = 0; i < questionsCount; i++)
 	{

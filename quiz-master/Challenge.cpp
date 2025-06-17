@@ -1,30 +1,36 @@
 #include "Challenge.h"
 #include <iostream>
+#include <sstream>
 
-//unsigned counter = 0;
+unsigned Challenge::counterChallenge = 0;
 
 Challenge::Challenge()
 {
-	id = counter;
-	counter++;
+	id = counterChallenge;
+	counterChallenge++;
 	text = " ";
 	type = ChallengeType::CreatedQuizes;
+	count = 0;
 }
 
 Challenge::Challenge(ChallengeType& type, int count)
 {
-	id = counter;
-	counter++;
+	id = counterChallenge;
+	counterChallenge++;
 	this->type = type;
 	this->count = count;
 
-	text = "";
-	text += count;
+	/*text = " ";
+	text += count;*/
+
+	std::stringstream ss;
+	ss << count;
+
 	switch (type)
 	{
-	case ChallengeType::SolvingInTestMode: text += " quizzes in test mode solved!";
-	case ChallengeType::SolvingInNormalMode: text += " quizzes in normal mode solved!";
-	case ChallengeType::CreatedQuizes: text += " quizzes created!";
+	case ChallengeType::SolvingInTestMode: text += " quizzes in test mode solved!"; break;
+	case ChallengeType::SolvingInNormalMode: text += " quizzes in normal mode solved!"; break;
+	case ChallengeType::CreatedQuizes: text += " quizzes created!"; break;
 	default: return;
 	}
 }
@@ -65,14 +71,14 @@ void Challenge::print() const
 	if (type == ChallengeType::CreatedQuizes)
 		std::cout << "Create ";
 	else
-		std::cout << "Solve";
+		std::cout << "Solve ";
 
 	std::cout << count << " quizzes ";
 	switch (type)
 	{
-	case ChallengeType::SolvingInTestMode: std::cout << " in test mode!\n";
-	case ChallengeType::SolvingInNormalMode: std::cout << " in normal mode!\n";
-	case ChallengeType::CreatedQuizes: std::cout << '\n';
+	case ChallengeType::SolvingInTestMode: std::cout << " in test mode!\n"; break;
+	case ChallengeType::SolvingInNormalMode: std::cout << " in normal mode!\n"; break;
+	case ChallengeType::CreatedQuizes: std::cout << '\n'; break;
 	default: return;
 	}
 }

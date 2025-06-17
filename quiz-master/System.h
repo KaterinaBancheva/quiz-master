@@ -43,6 +43,7 @@ private:
 	void savePendingToBinaryFile(std::ofstream& ofs) const;
 	void saveReportsToBinaryFile(std::ofstream& ofs) const;
 	void saveChallengesToBinaryFile(std::ofstream& ofs) const;
+	//static void saveCurrentQuizIdToBinaryFile(std::ofstream& ofs);
 
 	void setChallenges();
 	void addInitialAdmins();
@@ -53,6 +54,7 @@ private:
 	void readUsersFromBinaryFile(std::ifstream& ifs);
 	void readPendingFromBinaryFile(std::ifstream& ifs);
 	void readQuizzesFromBinaryFile(std::ifstream& ifs);
+	//static void readCurrentQuizIdToBinaryFile(std::ifstream& ifs);
 
 	void helpPlayer() const;
 	void helpAdmin() const;

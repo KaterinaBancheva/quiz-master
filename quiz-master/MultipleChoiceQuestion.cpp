@@ -39,7 +39,9 @@ Question* MultipleChoiceQuestion::clone() const
 void MultipleChoiceQuestion::answerTest()
 {
 	MyString answer;
-	std::cin >> answer;
+	std::string temp;
+	std::getline(std::cin, temp);
+	answer = temp.c_str();
 	answer = Helpers::normalize(answer);
 	std::stringstream ss(answer.c_str());
 	std::string token;
@@ -82,7 +84,9 @@ void MultipleChoiceQuestion::answerTest()
 bool MultipleChoiceQuestion::answerNormal()
 {
 	MyString answer;
-	std::cin >> answer;
+	std::string temp;
+	std::getline(std::cin, temp);
+	answer = temp.c_str();
 	answer = Helpers::normalize(answer);
 	std::stringstream ss(answer.c_str());
 	std::string token;
@@ -182,7 +186,7 @@ void MultipleChoiceQuestion::readFromBinaryFile(std::ifstream& ifs)
 
 	description.read(ifs);
 	ifs.read((char*)&points, sizeof(points));
-	size_t size;
+	size_t size = 0;
 	ifs.read((char*)&size, sizeof(size));
 	for (size_t i = 0; i < size; i++)
 	{

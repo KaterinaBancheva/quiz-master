@@ -8,6 +8,7 @@ private:
     MyString correctAnswer;
 
     void normalizeAnswer(MyString& str);
+    std::string trim(const std::string& str);
 public:
     ShortAnswerQuestion();
     ShortAnswerQuestion(const MyString& description, int points, const MyString& correctAnswer);

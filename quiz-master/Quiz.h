@@ -64,7 +64,9 @@ public:
 	void play();
 
 	void saveToFile(std::ofstream& ofs) const;
+	static void saveCurrentQuizIdToBinaryFile(std::ofstream& ofs);
 	void readFromBinaryFile(std::ifstream& ifs);
+	static void readCurrentQuizIdToBinaryFile(std::ifstream& ifs);
 	void saveToBinaryFile(std::ofstream& ofs) const; 
 
 	//void sendToApproval() const;

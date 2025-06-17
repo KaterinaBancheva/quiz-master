@@ -8,11 +8,12 @@ enum class ChallengeType
 	CreatedQuizes
 };
 
-static unsigned counter = 0;
-
 class Challenge
 {
 private:
+
+	static unsigned counterChallenge;
+
 	unsigned id;
 	MyString text;
 	int count;

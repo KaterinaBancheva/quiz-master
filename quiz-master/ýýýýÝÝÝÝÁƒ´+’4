@@ -1,0 +1,11 @@
+demo quiz - 2 questions 
+By: Petra Decheva@pepi
+1)SingleChoiceQuestion  What's the intersection point of 3x-2y+1=0 and 2x=y+5?
+A. (2.5, 0)
+B. (11, -17)
+C. (11, 17)
+D. (19, -10)
+Enter your choice here: 
+2)ShortAnswerQuestion What sorting algorithm has O(N+K) time complexity? (2 words)
+Enter yout answer here: 
+

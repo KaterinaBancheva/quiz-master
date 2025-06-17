@@ -155,10 +155,11 @@ void System::createQuiz()
 	std::getline(std::cin, title);
 	Quiz quiz(title.c_str(), loggedUser->getUsername());
 	quiz.setNames(loggedUser->getName(), loggedUser->getFamilyName());
+
 	/*Quiz* quiz = new Quiz(title, loggedUser->getUsername());
 	quiz->setNames(loggedUser->getName(), loggedUser->getFamilyName());*/
 
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 	unsigned num;
 	std::cout << "Enter number of questions: ";
@@ -198,9 +199,11 @@ void System::createQuiz()
 			std::getline(std::cin, ans4);
 			std::cout << "Enter correct answer (A, B, C, D): ";
 			std::cin >> right;
+			//std::cin.ignore();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "Enter points: ";
 			std::cin >> points;
-			SingleChoiceQuestion* question = new SingleChoiceQuestion(description, points, ans1.c_str(), ans2.c_str(), ans3.c_str(), ans4.c_str(), right);
+			SingleChoiceQuestion* question = new SingleChoiceQuestion(description, points, MyString(ans1.c_str()), MyString(ans2.c_str()), MyString(ans3.c_str()), MyString(ans4.c_str()), right);
 			quiz.addQuestion(question);
 		}
 		else if (type == "ShA")
@@ -221,7 +224,8 @@ void System::createQuiz()
 			MyVector<MyString> options;
 			MyVector<char> answers;
 
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cin.ignore();
 
 			for (size_t i = 0; i < cnt; i++)
 			{
@@ -232,8 +236,10 @@ void System::createQuiz()
 				options.push_back(std::move(temp.c_str()));
 			}
 			std::cout << "Enter correct answers: ";
-			MyString ans;
-			std::cin >> ans;
+			
+			char buffer[256];
+			std::cin.getline(buffer, 256);
+			MyString ans(buffer);
 			ans = Helpers::normalize(ans);
 			std::stringstream ss(ans.c_str());
 			std::string token;
@@ -255,28 +261,36 @@ void System::createQuiz()
 			MyVector<MyString> left, right;
 			std::cout << "Enter left column values count: ";
 			std::cin >> leftNum;
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
 			for (size_t i = 0; i < leftNum; i++)
 			{
 				char letter = 'A' + i;
 				std::cout << "Enter value " << letter << ": ";
 				std::string value;
+				//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+				std::cin.ignore();
 				std::getline(std::cin, value);
 				left.push_back(std::move(value.c_str()));
 			}
 
 			std::cout << "Enter right column values count: ";
 			std::cin >> rightNum;
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
 			for (size_t i = 0; i < rightNum; i++)
 			{
 				char letter = 'a' + i;
 				std::cout << "Enter value " << letter << ": ";
-				std::string value;
-				std::getline(std::cin, value);
-				right.push_back(std::move(value.c_str()));
+				//std::string value;
+				char value[256];
+				//std::getline(std::cin, value);
+				//std::cin.ignore();
+				//std::cin.ignore();
+				std::cin.getline(value, 256);
+				//std::cout << "[DEBUG] Received input: " << value << '\n';
+				right.push_back(MyString(value));
 			}
 
 			std::cout << "Enter correct pairs: ";
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 			std::string tempLine;
 			std::getline(std::cin, tempLine);
@@ -326,8 +340,11 @@ void System::createQuiz()
 		else if (type == "T/F")
 		{
 			std::cout << "Enter correct answer (True/False): ";
+			MyString boolStr;
 			bool ans;
-			std::cin >> ans;
+			std::cin >> boolStr;
+			if (boolStr == "true") ans = true;
+			if (boolStr == "false") ans = false;
 			std::cout << "Enter points: ";
 			std::cin >> points;
 			TrueOrFalseQuestion* question = new TrueOrFalseQuestion(description, points, ans);
@@ -513,6 +530,14 @@ void System::saveQuiz(unsigned quizId, const MyString& filepath)
 		std::cout << "Failed to open file for writing: " << filepath << '\n';
 		return;
 	}
+	/*std::cout << "[DEBUG] Trying to open file: " << filepath.c_str() << std::endl;
+
+	std::ofstream ofs(filepath.c_str(), std::ios::out | std::ios::trunc);
+	if (!ofs) {
+		std::cerr << "[ERROR] Failed to open file for writing: " << filepath.c_str() << std::endl;
+		std::cerr << "[ERROR] Reason: " << strerror(errno) << std::endl;
+		return;
+	}*/
 
 	int index = findQuizById(quizId);
 	if (index != -1)
@@ -622,6 +647,7 @@ void System::saveMessagesToBinaryFile(std::ofstream& ofs) const
 
 void System::saveQuizzesToBinaryFile(std::ofstream& ofs) const
 {
+	//saveCurrentQuizIdToBinaryFile(ofs);
 	size_t size = allQuizzes.getSize();
 	ofs.write((const char*)&size, sizeof(size));
 	for (size_t i = 0; i < size; i++)
@@ -672,6 +698,11 @@ void System::saveChallengesToBinaryFile(std::ofstream& ofs) const
 	}
 }
 
+//void System::saveCurrentQuizIdToBinaryFile(std::ofstream& ofs)
+//{
+//	Quiz::saveCurrentQuizIdToBinaryFile(ofs);
+//}
+
 void System::addInitialAdmins()
 {
 	User* admin_1 = new Administrator("admin_1", " ", "@admin_1", "0001");
@@ -715,7 +746,7 @@ void System::readChallengesFromBinaryFile(std::ifstream& ifs)
 {
 	allChallenges.clear();
 	setChallenges();
-	size_t size;
+	size_t size = 0;
 	ifs.read((char*)&size, sizeof(size));
 	for (size_t i = 0; i < size; i++)
 	{
@@ -756,7 +787,7 @@ void System::readUsersFromBinaryFile(std::ifstream& ifs)
 void System::readPendingFromBinaryFile(std::ifstream& ifs)
 {
 	pendingQuizzes.clear();
-	size_t size;
+	size_t size = 0;
 	ifs.read((char*)&size, sizeof(size));
 	for (size_t i = 0; i < size; i++)
 	{
@@ -768,6 +799,7 @@ void System::readPendingFromBinaryFile(std::ifstream& ifs)
 
 void System::readQuizzesFromBinaryFile(std::ifstream& ifs)
 {
+	//readCurrentQuizIdToBinaryFile(ifs);
 	allQuizzes.clear();
 	size_t size;
 	ifs.read((char*)&size, sizeof(size));
@@ -778,6 +810,11 @@ void System::readQuizzesFromBinaryFile(std::ifstream& ifs)
 		allQuizzes.push_back(*q);
 	}
 }
+
+//void System::readCurrentQuizIdToBinaryFile(std::ifstream& ifs)
+//{
+//	Quiz::readCurrentQuizIdToBinaryFile(ifs);
+//}
 
 void System::helpPlayer() const
 {
@@ -886,14 +923,15 @@ void System::approveQuiz(unsigned quizId)
 	if (loggedUser->getUserType() == UserType::Admin)
 	{
 		int index = findPendingQuizById(quizId);
-		allQuizzes.push_back(std::move(pendingQuizzes[index]));
+		allQuizzes.push_back(pendingQuizzes[index]);
 		MyString username = pendingQuizzes[index].getCreaterUsername();
-		std::swap(pendingQuizzes[index], pendingQuizzes[pendingQuizzes.getSize() - 1]);
+		if(pendingQuizzes.getSize() > 1)
+			std::swap(pendingQuizzes[index], pendingQuizzes[pendingQuizzes.getSize() - 1]);
 		pendingQuizzes.pop_back();
+		std::cout << "Quiz with id " << quizId << " approved!\n";
 
 		int idx = findUserByNickname(username);
 		Player* player = dynamic_cast<Player*>(allUsers[idx]);
-		//Player* player = dynamic_cast<Player*>(loggedUser);
 		if (player)
 		{
 			player->createQuiz(quizId);

@@ -13,15 +13,27 @@ void MyString::free()
 void MyString::copyFrom(const MyString& other)
 {
 	capacity = other.capacity;
-	data = new char[capacity];
+	/*data = new char[capacity];
 	strcpy(data, other.data);
+	size = other.size;*/
+	data = new char[capacity];
+	strncpy(data, other.data, other.size);
+	data[other.size] = '\0';
 	size = other.size;
 }
 
 void MyString::resize(unsigned newCapacity)
 {
-	char* newData = new char[newCapacity + 1];
+	/*char* newData = new char[newCapacity + 1];
 	strcpy(newData, data);
+	delete[] data;
+	data = newData;
+	capacity = newCapacity;*/
+	char* newData = new char[newCapacity + 1];
+
+	strncpy(newData, data, size);
+	newData[size] = '\0';  
+
 	delete[] data;
 	data = newData;
 	capacity = newCapacity;
