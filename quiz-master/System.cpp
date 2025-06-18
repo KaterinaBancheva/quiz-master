@@ -156,11 +156,6 @@ void System::createQuiz()
 	Quiz quiz(title.c_str(), loggedUser->getUsername());
 	quiz.setNames(loggedUser->getName(), loggedUser->getFamilyName());
 
-	/*Quiz* quiz = new Quiz(title, loggedUser->getUsername());
-	quiz->setNames(loggedUser->getName(), loggedUser->getFamilyName());*/
-
-	//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
 	unsigned num;
 	std::cout << "Enter number of questions: ";
 	if (!(std::cin >> num) || num == 0) 
@@ -199,10 +194,11 @@ void System::createQuiz()
 			std::getline(std::cin, ans4);
 			std::cout << "Enter correct answer (A, B, C, D): ";
 			std::cin >> right;
-			//std::cin.ignore();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cin.ignore();
+			//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "Enter points: ";
 			std::cin >> points;
+
 			SingleChoiceQuestion* question = new SingleChoiceQuestion(description, points, MyString(ans1.c_str()), MyString(ans2.c_str()), MyString(ans3.c_str()), MyString(ans4.c_str()), right);
 			quiz.addQuestion(question);
 		}
@@ -559,8 +555,9 @@ void System::reportQuiz(unsigned quizId, const MyString& reason)
 		int index = findQuizById(quizId);
 		if (index == -1) throw std::invalid_argument("Invalid id");
 
-		Report* report = new Report(loggedUser->getUsername(), allQuizzes[index].getCreaterUsername(), quizId, reason);
-		reports.push_back(*report);
+		Report report(loggedUser->getUsername(), allQuizzes[index].getCreaterUsername(), quizId, reason);
+		reports.push_back(report);
+		std::cout << "Quiz with id " << quizId << " was reported!\n";
 	}
 	else
 	{
@@ -707,7 +704,7 @@ void System::addInitialAdmins()
 {
 	User* admin_1 = new Administrator("admin_1", " ", "@admin_1", "0001");
 	User* admin_2 = new Administrator("admin_2", " ", "@admin_2", "0002");
-	User* admin_3 = new Administrator("admin_3", " ", "@admin_3", "0004");
+	User* admin_3 = new Administrator("admin_3", " ", "@admin_3", "0003");
 	User* admin_4 = new Administrator("admin_4", " ", "@admin_4", "0004");
 
 	allUsers.push_back(admin_1);
@@ -1003,7 +1000,7 @@ void System::ban(const MyString& username)
 
 		std::cout << allUsers[index]->getUsername() << " banned!\n";
 		std::swap(allUsers[index], allUsers[allUsers.getSize() - 1]);
-		delete allUsers[index];
+		delete allUsers[allUsers.getSize() - 1];
 		allUsers.pop_back();
 	}
 	else

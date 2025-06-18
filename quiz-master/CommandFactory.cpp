@@ -169,16 +169,21 @@ Command* CommandFactory::generateCommand(const MyString& fullLine)
     }
     else if (cmd == "report_quiz")
     {
-        unsigned id;
+        unsigned id = 0;
         if (!(iss >> id))
         {
             throw std::invalid_argument("Usage: report_quiz <id> <reason>");
         }
-        std::string str;
-        std::getline(iss, str);
-        if (!str.empty() && str[0] == ' ')
-            str.erase(0, 1);
-        return new ReportQuizCommand(id, str.c_str());
+        //std::string str;
+        
+      /*  char buff[256];
+        std::cin.getline(buff, 256);
+        std::cout << buff;*/
+
+        std::string reason;
+        std::getline(iss >> std::ws, reason);
+
+        return new ReportQuizCommand(id, reason.c_str());
     }
     else if (cmd == "pending")
     {

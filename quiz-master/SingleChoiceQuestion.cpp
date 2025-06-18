@@ -4,12 +4,12 @@
 SingleChoiceQuestion::SingleChoiceQuestion() : Question(" ", 0) { type = QuestionType::SC; }
 
 SingleChoiceQuestion::SingleChoiceQuestion(const MyString& description, int points, const MyString& a1, const MyString& a2, const MyString& a3,
-	const MyString& a4, char right) :Question(description, points)
+	const MyString& a4, char right) :Question(description, points) , answer1(a1), answer2(a2), answer3(a3), answer4(a4)
 {
-    answer1 = a1;
-    answer2 = a2;
-    answer3 = a3;
-    answer4 = a4;
+    //answer1 = a1;
+    //answer2 = a2;
+    //answer3 = a3;
+    //answer4 = a4;
     rightAnswer = right;
 	type = QuestionType::SC;
 }

@@ -5,9 +5,9 @@ class ReportQuizCommand :
 {
 private:
     unsigned id;
-    MyString filepath;
+    MyString reason;
 public:
-    ReportQuizCommand(unsigned id, const MyString& filpath);
+    ReportQuizCommand(unsigned id, const MyString& reason);
 
     void execute() override;
     ~ReportQuizCommand() override = default;

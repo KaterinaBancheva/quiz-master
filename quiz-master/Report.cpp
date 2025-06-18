@@ -22,8 +22,8 @@ void Report::print() const
         strncpy(timePart, timeStr + 11, 8); // HH:MM:SS is at position 11–18
         timePart[8] = '\0';
 
-        std::cout << timePart << " | sent by " << reporterUsername << ": " << " | quiz id " <<quizId << "  by " << creatorUsername << 
-            " | reason " << reason << std::endl;
+        std::cout << timePart << " | report sent by " << reporterUsername << " | [quiz id] " <<quizId << " by " << creatorUsername << 
+            " | [reason] " << reason << std::endl;
     }
     else
     {

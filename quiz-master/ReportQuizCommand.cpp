@@ -1,8 +1,8 @@
 #include "ReportQuizCommand.h"
 
-ReportQuizCommand::ReportQuizCommand(unsigned id, const MyString& filpath) :Command(), id(id), filepath(filepath) {}
+ReportQuizCommand::ReportQuizCommand(unsigned id, const MyString& reason) :Command(), id(id), reason(reason) {}
 
 void ReportQuizCommand::execute()
 {
-	s.reportQuiz(id, filepath);
+	s.reportQuiz(id, reason);
 }
